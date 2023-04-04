@@ -22,8 +22,11 @@ Partial Class Principal
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
+        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle4 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(Principal))
         Me.PictureBox1 = New System.Windows.Forms.PictureBox()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.PanelSuperior = New System.Windows.Forms.Panel()
@@ -35,6 +38,10 @@ Partial Class Principal
         Me.Lbl_NomEmpresa = New System.Windows.Forms.Label()
         Me.PictureBox2 = New System.Windows.Forms.PictureBox()
         Me.PanelEmpresas = New System.Windows.Forms.Panel()
+        Me.BT_HistorialComplet = New System.Windows.Forms.Button()
+        Me.Btn_EditarClient = New System.Windows.Forms.Button()
+        Me.Btn_EliminarClient = New System.Windows.Forms.Button()
+        Me.Btn_afegirClient = New System.Windows.Forms.Button()
         Me.PB_EliminaFiltreId = New System.Windows.Forms.PictureBox()
         Me.TB_CercaId = New System.Windows.Forms.TextBox()
         Me.PB_EliminaFiltre = New System.Windows.Forms.PictureBox()
@@ -169,10 +176,11 @@ Partial Class Principal
         'TB_ObservacionsCLient
         '
         Me.TB_ObservacionsCLient.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.TB_ObservacionsCLient.Location = New System.Drawing.Point(974, 22)
+        Me.TB_ObservacionsCLient.Location = New System.Drawing.Point(869, 22)
         Me.TB_ObservacionsCLient.Multiline = True
         Me.TB_ObservacionsCLient.Name = "TB_ObservacionsCLient"
-        Me.TB_ObservacionsCLient.Size = New System.Drawing.Size(439, 37)
+        Me.TB_ObservacionsCLient.PlaceholderText = "Introdueix observacions"
+        Me.TB_ObservacionsCLient.Size = New System.Drawing.Size(544, 37)
         Me.TB_ObservacionsCLient.TabIndex = 1
         '
         'Lbl_NomEmpresa
@@ -196,6 +204,10 @@ Partial Class Principal
         '
         'PanelEmpresas
         '
+        Me.PanelEmpresas.Controls.Add(Me.BT_HistorialComplet)
+        Me.PanelEmpresas.Controls.Add(Me.Btn_EditarClient)
+        Me.PanelEmpresas.Controls.Add(Me.Btn_EliminarClient)
+        Me.PanelEmpresas.Controls.Add(Me.Btn_afegirClient)
         Me.PanelEmpresas.Controls.Add(Me.PB_EliminaFiltreId)
         Me.PanelEmpresas.Controls.Add(Me.TB_CercaId)
         Me.PanelEmpresas.Controls.Add(Me.PB_EliminaFiltre)
@@ -207,10 +219,48 @@ Partial Class Principal
         Me.PanelEmpresas.Size = New System.Drawing.Size(361, 567)
         Me.PanelEmpresas.TabIndex = 3
         '
+        'BT_HistorialComplet
+        '
+        Me.BT_HistorialComplet.Location = New System.Drawing.Point(240, 6)
+        Me.BT_HistorialComplet.Name = "BT_HistorialComplet"
+        Me.BT_HistorialComplet.Size = New System.Drawing.Size(110, 33)
+        Me.BT_HistorialComplet.TabIndex = 8
+        Me.BT_HistorialComplet.Text = "Historial complet"
+        Me.BT_HistorialComplet.UseVisualStyleBackColor = True
+        '
+        'Btn_EditarClient
+        '
+        Me.Btn_EditarClient.BackgroundImage = Global.Control_Hores.My.Resources.Resources.editar
+        Me.Btn_EditarClient.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom
+        Me.Btn_EditarClient.Location = New System.Drawing.Point(92, 6)
+        Me.Btn_EditarClient.Name = "Btn_EditarClient"
+        Me.Btn_EditarClient.Size = New System.Drawing.Size(33, 33)
+        Me.Btn_EditarClient.TabIndex = 7
+        Me.Btn_EditarClient.UseVisualStyleBackColor = True
+        '
+        'Btn_EliminarClient
+        '
+        Me.Btn_EliminarClient.Image = Global.Control_Hores.My.Resources.Resources.menos
+        Me.Btn_EliminarClient.Location = New System.Drawing.Point(53, 6)
+        Me.Btn_EliminarClient.Name = "Btn_EliminarClient"
+        Me.Btn_EliminarClient.Size = New System.Drawing.Size(33, 33)
+        Me.Btn_EliminarClient.TabIndex = 6
+        Me.Btn_EliminarClient.UseVisualStyleBackColor = True
+        '
+        'Btn_afegirClient
+        '
+        Me.Btn_afegirClient.Image = Global.Control_Hores.My.Resources.Resources.mas
+        Me.Btn_afegirClient.Location = New System.Drawing.Point(14, 6)
+        Me.Btn_afegirClient.Name = "Btn_afegirClient"
+        Me.Btn_afegirClient.Size = New System.Drawing.Size(33, 33)
+        Me.Btn_afegirClient.TabIndex = 5
+        Me.Btn_afegirClient.UseVisualStyleBackColor = True
+        '
         'PB_EliminaFiltreId
         '
+        Me.PB_EliminaFiltreId.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.PB_EliminaFiltreId.Image = Global.Control_Hores.My.Resources.Resources.icono_eliminar
-        Me.PB_EliminaFiltreId.Location = New System.Drawing.Point(323, 26)
+        Me.PB_EliminaFiltreId.Location = New System.Drawing.Point(325, 48)
         Me.PB_EliminaFiltreId.Name = "PB_EliminaFiltreId"
         Me.PB_EliminaFiltreId.Size = New System.Drawing.Size(25, 23)
         Me.PB_EliminaFiltreId.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom
@@ -219,15 +269,17 @@ Partial Class Principal
         '
         'TB_CercaId
         '
-        Me.TB_CercaId.Location = New System.Drawing.Point(222, 26)
+        Me.TB_CercaId.Location = New System.Drawing.Point(201, 48)
         Me.TB_CercaId.Name = "TB_CercaId"
-        Me.TB_CercaId.Size = New System.Drawing.Size(95, 23)
+        Me.TB_CercaId.PlaceholderText = "Cerca per ID"
+        Me.TB_CercaId.Size = New System.Drawing.Size(125, 23)
         Me.TB_CercaId.TabIndex = 3
         '
         'PB_EliminaFiltre
         '
+        Me.PB_EliminaFiltre.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.PB_EliminaFiltre.Image = Global.Control_Hores.My.Resources.Resources.icono_eliminar
-        Me.PB_EliminaFiltre.Location = New System.Drawing.Point(161, 26)
+        Me.PB_EliminaFiltre.Location = New System.Drawing.Point(156, 47)
         Me.PB_EliminaFiltre.Name = "PB_EliminaFiltre"
         Me.PB_EliminaFiltre.Size = New System.Drawing.Size(25, 23)
         Me.PB_EliminaFiltre.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom
@@ -236,8 +288,9 @@ Partial Class Principal
         '
         'TB_CercaEmpreses
         '
-        Me.TB_CercaEmpreses.Location = New System.Drawing.Point(12, 26)
+        Me.TB_CercaEmpreses.Location = New System.Drawing.Point(14, 47)
         Me.TB_CercaEmpreses.Name = "TB_CercaEmpreses"
+        Me.TB_CercaEmpreses.PlaceholderText = "Cerca per empresa"
         Me.TB_CercaEmpreses.Size = New System.Drawing.Size(143, 23)
         Me.TB_CercaEmpreses.TabIndex = 1
         '
@@ -246,14 +299,24 @@ Partial Class Principal
         Me.DataEmpreses.AllowUserToAddRows = False
         Me.DataEmpreses.AllowUserToDeleteRows = False
         Me.DataEmpreses.AllowUserToResizeRows = False
-        DataGridViewCellStyle3.BackColor = System.Drawing.Color.FromArgb(CType(CType(224, Byte), Integer), CType(CType(224, Byte), Integer), CType(CType(224, Byte), Integer))
-        Me.DataEmpreses.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle3
+        DataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(CType(CType(224, Byte), Integer), CType(CType(224, Byte), Integer), CType(CType(224, Byte), Integer))
+        Me.DataEmpreses.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle1
         Me.DataEmpreses.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
             Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.DataEmpreses.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill
-        Me.DataEmpreses.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.DataEmpreses.Location = New System.Drawing.Point(12, 55)
+        DataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.ActiveCaption
+        DataGridViewCellStyle2.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point)
+        DataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.WindowText
+        DataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.ActiveCaption
+        DataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.ControlText
+        DataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.DataEmpreses.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle2
+        Me.DataEmpreses.ColumnHeadersHeight = 30
+        Me.DataEmpreses.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing
+        Me.DataEmpreses.EnableHeadersVisualStyles = False
+        Me.DataEmpreses.Location = New System.Drawing.Point(14, 78)
         Me.DataEmpreses.MultiSelect = False
         Me.DataEmpreses.Name = "DataEmpreses"
         Me.DataEmpreses.ReadOnly = True
@@ -261,7 +324,7 @@ Partial Class Principal
         Me.DataEmpreses.RowTemplate.Height = 25
         Me.DataEmpreses.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
         Me.DataEmpreses.ShowEditingIcon = False
-        Me.DataEmpreses.Size = New System.Drawing.Size(334, 494)
+        Me.DataEmpreses.Size = New System.Drawing.Size(336, 477)
         Me.DataEmpreses.TabIndex = 0
         '
         'Panel2
@@ -525,13 +588,14 @@ Partial Class Principal
         '
         'Panel_ComentarisTransaccio
         '
+        Me.Panel_ComentarisTransaccio.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.Panel_ComentarisTransaccio.Controls.Add(Me.TB_Comentaris)
         Me.Panel_ComentarisTransaccio.Controls.Add(Me.Label6)
-        Me.Panel_ComentarisTransaccio.Dock = System.Windows.Forms.DockStyle.Right
-        Me.Panel_ComentarisTransaccio.Location = New System.Drawing.Point(464, 0)
+        Me.Panel_ComentarisTransaccio.Location = New System.Drawing.Point(439, 0)
         Me.Panel_ComentarisTransaccio.Name = "Panel_ComentarisTransaccio"
         Me.Panel_ComentarisTransaccio.Padding = New System.Windows.Forms.Padding(10, 0, 0, 0)
-        Me.Panel_ComentarisTransaccio.Size = New System.Drawing.Size(215, 100)
+        Me.Panel_ComentarisTransaccio.Size = New System.Drawing.Size(240, 100)
         Me.Panel_ComentarisTransaccio.TabIndex = 13
         Me.Panel_ComentarisTransaccio.Visible = False
         '
@@ -543,7 +607,7 @@ Partial Class Principal
         Me.TB_Comentaris.Location = New System.Drawing.Point(13, 29)
         Me.TB_Comentaris.Multiline = True
         Me.TB_Comentaris.Name = "TB_Comentaris"
-        Me.TB_Comentaris.Size = New System.Drawing.Size(195, 57)
+        Me.TB_Comentaris.Size = New System.Drawing.Size(220, 57)
         Me.TB_Comentaris.TabIndex = 6
         '
         'Label6
@@ -603,13 +667,23 @@ Partial Class Principal
         Me.DataHistorial.AllowUserToAddRows = False
         Me.DataHistorial.AllowUserToDeleteRows = False
         Me.DataHistorial.AllowUserToResizeRows = False
-        DataGridViewCellStyle4.BackColor = System.Drawing.Color.FromArgb(CType(CType(224, Byte), Integer), CType(CType(224, Byte), Integer), CType(CType(224, Byte), Integer))
-        Me.DataHistorial.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle4
+        DataGridViewCellStyle3.BackColor = System.Drawing.Color.FromArgb(CType(CType(224, Byte), Integer), CType(CType(224, Byte), Integer), CType(CType(224, Byte), Integer))
+        Me.DataHistorial.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle3
         Me.DataHistorial.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
             Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.DataHistorial.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill
-        Me.DataHistorial.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        DataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.ActiveCaption
+        DataGridViewCellStyle4.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point)
+        DataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.WindowText
+        DataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.ActiveCaption
+        DataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.ControlText
+        DataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.DataHistorial.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle4
+        Me.DataHistorial.ColumnHeadersHeight = 30
+        Me.DataHistorial.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing
+        Me.DataHistorial.EnableHeadersVisualStyles = False
         Me.DataHistorial.Location = New System.Drawing.Point(15, 125)
         Me.DataHistorial.MultiSelect = False
         Me.DataHistorial.Name = "DataHistorial"
@@ -629,6 +703,8 @@ Partial Class Principal
         Me.Controls.Add(Me.Panel2)
         Me.Controls.Add(Me.PanelEmpresas)
         Me.Controls.Add(Me.PanelSuperior)
+        Me.DoubleBuffered = True
+        Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.MinimumSize = New System.Drawing.Size(1470, 694)
         Me.Name = "Principal"
         Me.Text = "Control Pack d'hores"
@@ -707,4 +783,8 @@ Partial Class Principal
     Friend WithEvents Label2 As Label
     Friend WithEvents DataHistorial As DataGridView
     Friend WithEvents Lbl_IdExit As Label
+    Friend WithEvents Btn_EditarClient As Button
+    Friend WithEvents Btn_EliminarClient As Button
+    Friend WithEvents Btn_afegirClient As Button
+    Friend WithEvents BT_HistorialComplet As Button
 End Class

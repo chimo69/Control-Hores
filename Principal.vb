@@ -11,8 +11,8 @@ Public Class Principal
     Private Sub Form1_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         DataEmpreses.DataSource = Conexio.CarregaClients()
         DataHistorial.DataSource = Conexio.CarregaHistorial
-        ColorejaTransaccions()
-        ColorejaClients()
+
+
     End Sub
 
     Private Sub DataEmpreses_DataBindingComplete(sender As Object, e As DataGridViewBindingCompleteEventArgs) Handles DataEmpreses.DataBindingComplete
@@ -23,7 +23,9 @@ Public Class Principal
         Dgv.Columns("Hores").Width = 40
         Dgv.Columns("Hores").DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight
         Dgv.Columns("IdExit").Width = 50
+        Dgv.Columns("IdExit").DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter
         Dgv.ClearSelection()
+        ColorejaClients()
     End Sub
 
     Private Sub TB_CercaEmpreses_TextChanged(sender As Object, e As EventArgs) Handles TB_CercaEmpreses.TextChanged
@@ -31,12 +33,15 @@ Public Class Principal
     End Sub
 
     Private Sub PB_EliminaFiltre_Click(sender As Object, e As EventArgs) Handles PB_EliminaFiltre.Click
-        TB_CercaEmpreses.Clear()
-        ResetejaTot()
-        DataEmpreses.ClearSelection()
-        Lbl_NomEmpresa.Text = ""
-        PanelGestio.Visible = False
-        PanelControlHoras.Visible = False
+        If TB_CercaEmpreses.Text <> "" Then
+            TB_CercaEmpreses.Clear()
+            DataEmpreses.DataSource = Conexio.CarregaClients(TB_CercaEmpreses.Text, TB_CercaId.Text)
+        End If
+        'ResetejaTot()
+        'DataEmpreses.ClearSelection()
+        'Lbl_NomEmpresa.Text = ""
+        'PanelGestio.Visible = False
+        'PanelControlHoras.Visible = False
     End Sub
 
     Private Sub DataEmpreses_CellClick(sender As Object, e As DataGridViewCellEventArgs) Handles DataEmpreses.CellClick
@@ -63,15 +68,10 @@ Public Class Principal
             .Columns("Id").Width = 50
             '.AutoResizeColumns()
             .ClearSelection()
+            ColorejaTransaccions()
         End With
     End Sub
 
-    Private Sub ResetejaTot()
-        DataHistorial.DataSource = Conexio.CarregaHistorial
-        TB_Comentaris.Clear()
-        ColorejaTransaccions()
-        PanelControlHoras.Visible = False
-    End Sub
     Private Sub CalculaHores()
         Dim HoresRestades, HoresSumades, HoresDisponibles As Double
         For Each row As DataGridViewRow In DataHistorial.Rows
@@ -140,8 +140,6 @@ Public Class Principal
         DataEmpreses.DataSource = CarregaClients()
 
         CalculaHores()
-        ColorejaTransaccions()
-        ColorejaClients()
         TB_HoresAfegir.Clear()
         TB_Comentaris.Clear()
         TB_HoresRestar.Clear()
@@ -152,15 +150,21 @@ Public Class Principal
         Panel_ComentarisTransaccio.Visible = False
     End Sub
 
+    Public Sub ActualitzaClients()
+        DataEmpreses.DataSource = CarregaClients()
+        ColorejaClients()
+    End Sub
+
     Private Sub Btn_DesarObservacions_Click(sender As Object, e As EventArgs) Handles Btn_DesarObservacions.Click
         If ActualitzaObservacionsClient(DataEmpreses.CurrentRow.Cells("Id").Value, TB_ObservacionsCLient.Text) = True Then
             MsgBox("Observacions actualitzades",, "Actualització de dades")
+            ActualitzaClients()
         Else
             MsgBox("No s'han pogut actualitzar les observacions ",, "Actualització de dades")
         End If
     End Sub
 
-    Private Sub TB_HoresAfegir_TextChanged(sender As Object, e As EventArgs)
+    Private Sub TB_HoresAfegir_TextChanged(sender As Object, e As EventArgs) Handles TB_HoresAfegir.TextChanged
         If TB_HoresAfegir.Text = "" Then TB_HoresAfegir.Text = "0"
         Dim valor1 As Double = 0
         Dim valor2 As Double = 0
@@ -168,13 +172,12 @@ Public Class Principal
         If Double.TryParse(TB_HoresAfegir.Text, valor1) AndAlso Double.TryParse(TB_PreuHora.Text, valor2) Then
             Dim resultado As Double = valor1 * valor2
             TB_Import.Text = resultado.ToString()
-            'Else
-            'TB_Resultat.Text = "Error: el valor introducido no es un número válido."
+
         End If
 
     End Sub
 
-    Private Sub TB_PreuHora_TextChanged(sender As Object, e As EventArgs)
+    Private Sub TB_PreuHora_TextChanged(sender As Object, e As EventArgs) Handles TB_PreuHora.TextChanged
         If TB_PreuHora.Text = "" Then TB_PreuHora.Text = "0"
         Dim valor1 As Double = 0
         Dim valor2 As Double = 0
@@ -182,8 +185,7 @@ Public Class Principal
         If Double.TryParse(TB_HoresAfegir.Text, valor1) AndAlso Double.TryParse(TB_PreuHora.Text, valor2) Then
             Dim resultado As Double = valor1 * valor2
             TB_Import.Text = resultado.ToString()
-            'Else
-            'TB_Resultat.Text = "Error: el valor introducido no es un número válido."
+
         End If
     End Sub
 
@@ -246,11 +248,80 @@ Public Class Principal
             Lbl_IdExit.Text = ""
         End If
         CalculaHores()
-        ColorejaTransaccions()
+
         PanelGestio.Visible = True
     End Sub
 
     Private Sub TB_CercaId_TextChanged(sender As Object, e As EventArgs) Handles TB_CercaId.TextChanged
         DataEmpreses.DataSource = Conexio.CarregaClients(TB_CercaEmpreses.Text, TB_CercaId.Text)
+    End Sub
+
+    Private Sub PB_EliminaFiltreId_Click(sender As Object, e As EventArgs) Handles PB_EliminaFiltreId.Click
+        If TB_CercaId.Text <> "" Then
+            TB_CercaId.Clear()
+            DataEmpreses.DataSource = Conexio.CarregaClients(TB_CercaEmpreses.Text, TB_CercaId.Text)
+        End If
+    End Sub
+
+    Private Sub Btn_afegirClient_Click(sender As Object, e As EventArgs) Handles Btn_afegirClient.Click
+        Dim nouClient As Form = New EdicioClient()
+        nouClient.ShowDialog()
+    End Sub
+
+    Private Sub Btn_EliminarClient_Click(sender As Object, e As EventArgs) Handles Btn_EliminarClient.Click
+        If DataEmpreses.SelectedRows.Count > 0 Then
+            Dim result = MsgBox("Estás segur que vols eliminar aquest client? Això borrarà també els seus registres", vbYesNo, "Atencio!")
+            If result = vbYes Then
+                If EliminaClient(DataEmpreses.CurrentRow.Cells("Id").Value) = True Then
+                    MsgBox("S'ha eliminat amb éxit el client",, "Eliminar registre")
+                    DataEmpreses.DataSource = Conexio.CarregaClients(TB_CercaEmpreses.Text, TB_CercaId.Text)
+                    AmagaPanelGestio()
+                Else
+                    MsgBox("No s'ha pogut eliminar el client",, "Eliminar registre")
+                End If
+            Else
+
+            End If
+        End If
+    End Sub
+
+    Private Sub Btn_EditarClient_Click(sender As Object, e As EventArgs) Handles Btn_EditarClient.Click
+
+        If DataEmpreses.SelectedRows.Count > 0 Then
+            Dim id As Integer = DataEmpreses.CurrentRow.Cells("Id").Value
+            Dim idExit As String = DataEmpreses.CurrentRow.Cells("IdExit").Value
+            Dim nom As String = DataEmpreses.CurrentRow.Cells("Nom").Value
+            Dim nouClient As Form = New EdicioClient(id, idExit, nom)
+            nouClient.ShowDialog()
+        End If
+    End Sub
+
+    Private Sub BT_HistorialComplet_Click(sender As Object, e As EventArgs) Handles BT_HistorialComplet.Click
+        MostraHistorialComplet()
+    End Sub
+
+    Public Sub MostraHistorialComplet()
+        DataHistorial.DataSource = CarregaHistorial()
+        DataEmpreses.ClearSelection()
+        PanelGestio.Visible = False
+        PanelControlHoras.Visible = False
+        Panel_AfegirHores.Visible = False
+        Panel_RestarHores.Visible = False
+    End Sub
+    Public Sub MostraTotComplet()
+        DataHistorial.DataSource = CarregaHistorial()
+        DataEmpreses.DataSource = CarregaClients()
+        DataEmpreses.ClearSelection()
+        PanelGestio.Visible = False
+        PanelControlHoras.Visible = False
+        Panel_AfegirHores.Visible = False
+        Panel_RestarHores.Visible = False
+    End Sub
+
+    Public Sub AmagaPanelGestio()
+        PanelGestio.Visible = False
+        PanelControlHoras.Visible = False
+        Panel_AfegirHores.Visible = False
+        Panel_RestarHores.Visible = False
     End Sub
 End Class

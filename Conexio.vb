@@ -8,7 +8,11 @@ Module Conexio
 
     Public Function CarregaClients()
         Dim DT As New DataTable
-        Dim Query As String = "SELECT Clients.*, SUM(Historial.hores) as Hores
+        Dim Query As String = "SELECT printf('%05d',Clients.IdExit) as IdExit,
+                                      Clients.Id,
+                                      Clients.Nom,
+                                      Clients.Observacions,                                      
+                                      SUM(Historial.hores) as Hores
                                FROM Clients
                                LEFT JOIN Historial ON Clients.ID = Historial.Client
                                GROUP BY Clients.ID"
@@ -20,11 +24,16 @@ Module Conexio
     End Function
     Public Function CarregaClients(Text As String, idBuscar As String) As DataTable
         Dim DT As New DataTable
-        Dim Query As String = "SELECT Clients.*, SUM(Historial.hores) as Hores
+
+        Dim Query As String = "SELECT printf('%05d',Clients.IdExit) as IdExit,
+                                      Clients.Id,
+                                      Clients.Nom,
+                                      Clients.Observacions,                                      
+                                      SUM(Historial.hores) as Hores
                                FROM Clients
                                LEFT JOIN Historial ON Clients.ID = Historial.Client
                                WHERE Clients.Nom LIKE '%' || @textBuscar || '%' AND Clients.IdExit LIKE '%' || @idBuscar || '%'
-                               GROUP bY Clients.ID "
+                               GROUP BY Clients.ID "
 
         Dim CMD As New SQLiteCommand(Query, conexion)
         CMD.Parameters.AddWithValue("@textBuscar", Text)
@@ -33,6 +42,7 @@ Module Conexio
         DA.Fill(DT)
         conexion.Close()
         Return DT
+
     End Function
     Public Function CarregaHistorial() As DataTable
         Dim DT As New DataTable
@@ -164,6 +174,69 @@ Module Conexio
             End If
             Return True
         Catch ex As Exception
+            Return False
+        End Try
+        conexion.Close()
+    End Function
+    Public Function EliminaClient(idClient As Integer)
+        Dim Query As String = "DELETE FROM Clients WHERE ID=@IdClient"
+        Dim CMD As New SQLiteCommand(Query, conexion)
+
+        Try
+            conexion.Open()
+            CMD.Parameters.AddWithValue("@IdClient", idClient)
+
+            If conexion.State = ConnectionState.Open Then
+                CMD.ExecuteNonQuery()
+            End If
+            Return True
+        Catch ex As Exception
+            Return False
+        End Try
+        conexion.Close()
+    End Function
+    Public Function AfegirClient(RaoSocial As String, IdExit As String)
+        Dim Query As String = "INSERT INTO Clients (Nom, IdExit) VALUES (@RaoSocial,@IdExit)"
+        Dim CMD As New SQLiteCommand(Query, conexion)
+
+        Try
+            conexion.Open()
+
+            With CMD
+                .Parameters.AddWithValue("@RaoSocial", RaoSocial)
+                .Parameters.AddWithValue("@IdExit", IdExit)
+            End With
+
+            If conexion.State = ConnectionState.Open Then
+                CMD.ExecuteNonQuery()
+            End If
+            Return True
+        Catch ex As Exception
+            Debug.WriteLine(ex.Message)
+            Return False
+        End Try
+        conexion.Close()
+    End Function
+
+    Public Function ActualitzarClient(Id As Integer, nom As String, IdExit As String)
+        Dim Query As String = "UPDATE Clients SET nom=@Nom, IdExit=@IdExit WHERE Id= @Id"
+        Dim CMD As New SQLiteCommand(Query, conexion)
+
+        Try
+            conexion.Open()
+
+            With CMD
+                .Parameters.AddWithValue("@nom", nom)
+                .Parameters.AddWithValue("@IdExit", IdExit)
+                .Parameters.AddWithValue("@Id", Id)
+            End With
+
+            If conexion.State = ConnectionState.Open Then
+                CMD.ExecuteNonQuery()
+            End If
+            Return True
+        Catch ex As Exception
+            Debug.WriteLine(ex.Message)
             Return False
         End Try
         conexion.Close()

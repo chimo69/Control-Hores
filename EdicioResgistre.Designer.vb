@@ -155,7 +155,9 @@ Partial Class EdicioResgistre
         Me.Controls.Add(Me.Label2)
         Me.Controls.Add(Me.TP_DataRegistre)
         Me.Controls.Add(Me.Label1)
+        Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog
         Me.Name = "EdicioResgistre"
+        Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent
         Me.Text = "Edicio de Registre"
         Me.ResumeLayout(False)
         Me.PerformLayout()
