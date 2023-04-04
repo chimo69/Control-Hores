@@ -7,6 +7,7 @@ Public Class Principal
     Public groc As Color = Color.FromArgb(252, 255, 168)
     Public telematic As Color = Color.FromArgb(72, 101, 174)
     Public telematic_oscur As Color = Color.FromArgb(37, 46, 59)
+
     Private Sub Form1_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         DataEmpreses.DataSource = Conexio.CarregaClients()
         DataHistorial.DataSource = Conexio.CarregaHistorial
@@ -21,11 +22,12 @@ Public Class Principal
         Dgv.Columns("Observacions").Visible = False
         Dgv.Columns("Hores").Width = 40
         Dgv.Columns("Hores").DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight
+        Dgv.Columns("IdExit").Width = 50
         Dgv.ClearSelection()
     End Sub
 
     Private Sub TB_CercaEmpreses_TextChanged(sender As Object, e As EventArgs) Handles TB_CercaEmpreses.TextChanged
-        DataEmpreses.DataSource = Conexio.CarregaClients(TB_CercaEmpreses.Text)
+        DataEmpreses.DataSource = Conexio.CarregaClients(TB_CercaEmpreses.Text, TB_CercaId.Text)
     End Sub
 
     Private Sub PB_EliminaFiltre_Click(sender As Object, e As EventArgs) Handles PB_EliminaFiltre.Click
@@ -38,24 +40,14 @@ Public Class Principal
     End Sub
 
     Private Sub DataEmpreses_CellClick(sender As Object, e As DataGridViewCellEventArgs) Handles DataEmpreses.CellClick
-        DataHistorial.DataSource = Conexio.CarregaHistorial(DataEmpreses.CurrentRow.Cells("Id").Value)
-        If Not IsDBNull(DataEmpreses.CurrentRow.Cells("Observacions").Value) Then
-            TB_ObservacionsCLient.Text = DataEmpreses.CurrentRow.Cells("Observacions").Value
-        Else
-            TB_ObservacionsCLient.Text = ""
-        End If
-        PanelControlHoras.Visible = True
-        Lbl_NomEmpresa.Text = DataEmpreses.CurrentRow.Cells("Nom").Value
-        CalculaHores()
-        ColorejaTransaccions()
-        PanelGestio.Visible = True
+        SeleccionaEmpresa(DataEmpreses.CurrentRow.Cells("Id").Value)
     End Sub
 
     Private Sub DataHistorial_DataBindingComplete(sender As Object, e As DataGridViewBindingCompleteEventArgs) Handles DataHistorial.DataBindingComplete
         Dim dgv As DataGridView = sender
         With dgv
-            .Columns("Id").Visible = False
             .Columns("IdTransaccio").Visible = False
+            .Columns("Client").Visible = False
             .Columns("Data transacció").DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter
             .Columns("Data transacció").Width = 100
             .Columns("Hores").Width = 50
@@ -68,6 +60,7 @@ Public Class Principal
             .Columns("Import").DefaultCellStyle.FormatProvider = New System.Globalization.CultureInfo("es-ES")
             .Columns("Import").DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight
             .Columns("Import").Width = 70
+            .Columns("Id").Width = 50
             '.AutoResizeColumns()
             .ClearSelection()
         End With
@@ -142,8 +135,10 @@ Public Class Principal
     End Sub
 
     Public Sub ActualitzaHistorial()
-        DataHistorial.DataSource = CarregaHistorial(DataEmpreses.CurrentRow.Cells("Id").Value)
+        Dim IdEmpresaSeleccionada = DataEmpreses.CurrentRow.Cells("Id").Value
+        DataHistorial.DataSource = CarregaHistorial(IdEmpresaSeleccionada)
         DataEmpreses.DataSource = CarregaClients()
+
         CalculaHores()
         ColorejaTransaccions()
         ColorejaClients()
@@ -165,7 +160,7 @@ Public Class Principal
         End If
     End Sub
 
-    Private Sub TB_HoresAfegir_TextChanged(sender As Object, e As EventArgs) Handles TB_HoresAfegir.TextChanged
+    Private Sub TB_HoresAfegir_TextChanged(sender As Object, e As EventArgs)
         If TB_HoresAfegir.Text = "" Then TB_HoresAfegir.Text = "0"
         Dim valor1 As Double = 0
         Dim valor2 As Double = 0
@@ -179,7 +174,7 @@ Public Class Principal
 
     End Sub
 
-    Private Sub TB_PreuHora_TextChanged(sender As Object, e As EventArgs) Handles TB_PreuHora.TextChanged
+    Private Sub TB_PreuHora_TextChanged(sender As Object, e As EventArgs)
         If TB_PreuHora.Text = "" Then TB_PreuHora.Text = "0"
         Dim valor1 As Double = 0
         Dim valor2 As Double = 0
@@ -220,16 +215,42 @@ Public Class Principal
     Private Sub DataHistorial_CellMouseClick(sender As Object, e As DataGridViewCellMouseEventArgs) Handles DataHistorial.CellMouseClick
         If e.Button = MouseButtons.Right Then
             Dim dgv As DataGridView = DataHistorial
+            Dim idEmpresa As Integer = dgv.Rows(e.RowIndex).Cells("Client").Value
             Dim idHistorial As Integer = dgv.Rows(e.RowIndex).Cells("Id").Value
             Dim comentaris As String = dgv.Rows(e.RowIndex).Cells("Observacions").Value
             Dim Hores As Double = dgv.Rows(e.RowIndex).Cells("Hores").Value
             Dim PreuHora As Double = dgv.Rows(e.RowIndex).Cells("Preu/Hora").Value
             Dim Data As Date = dgv.Rows(e.RowIndex).Cells("Data Transacció").Value
 
-            Dim editaRegistre As New EdicioResgistre(idHistorial, Data, comentaris, Hores, PreuHora)
+            Dim editaRegistre As New EdicioResgistre(idEmpresa, idHistorial, Data, comentaris, Hores, PreuHora)
             editaRegistre.ShowDialog()
 
         End If
+    End Sub
+    Public Sub SeleccionaEmpresa(IdEmpresa As Integer)
+        For Each row As DataGridViewRow In DataEmpreses.Rows
+            If row.Cells("Id").Value = IdEmpresa Then row.Selected = True
+        Next
 
+        DataHistorial.DataSource = Conexio.CarregaHistorial(IdEmpresa)
+        If Not IsDBNull(DataEmpreses.CurrentRow.Cells("Observacions").Value) Then
+            TB_ObservacionsCLient.Text = DataEmpreses.CurrentRow.Cells("Observacions").Value
+        Else
+            TB_ObservacionsCLient.Text = ""
+        End If
+        PanelControlHoras.Visible = True
+        Lbl_NomEmpresa.Text = DataEmpreses.CurrentRow.Cells("Nom").Value
+        If Not IsDBNull(DataEmpreses.CurrentRow.Cells("IdExit").Value) Then
+            Lbl_IdExit.Text = DataEmpreses.CurrentRow.Cells("IdExit").Value
+        Else
+            Lbl_IdExit.Text = ""
+        End If
+        CalculaHores()
+        ColorejaTransaccions()
+        PanelGestio.Visible = True
+    End Sub
+
+    Private Sub TB_CercaId_TextChanged(sender As Object, e As EventArgs) Handles TB_CercaId.TextChanged
+        DataEmpreses.DataSource = Conexio.CarregaClients(TB_CercaEmpreses.Text, TB_CercaId.Text)
     End Sub
 End Class

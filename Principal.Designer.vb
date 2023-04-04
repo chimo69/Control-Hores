@@ -22,31 +22,34 @@ Partial Class Principal
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
-        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle4 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Me.PictureBox1 = New System.Windows.Forms.PictureBox()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.PanelSuperior = New System.Windows.Forms.Panel()
         Me.Panel1 = New System.Windows.Forms.Panel()
-        Me.PictureBox2 = New System.Windows.Forms.PictureBox()
+        Me.Lbl_IdExit = New System.Windows.Forms.Label()
         Me.Btn_DesarObservacions = New System.Windows.Forms.Button()
         Me.Label7 = New System.Windows.Forms.Label()
         Me.TB_ObservacionsCLient = New System.Windows.Forms.TextBox()
         Me.Lbl_NomEmpresa = New System.Windows.Forms.Label()
+        Me.PictureBox2 = New System.Windows.Forms.PictureBox()
         Me.PanelEmpresas = New System.Windows.Forms.Panel()
+        Me.PB_EliminaFiltreId = New System.Windows.Forms.PictureBox()
+        Me.TB_CercaId = New System.Windows.Forms.TextBox()
         Me.PB_EliminaFiltre = New System.Windows.Forms.PictureBox()
         Me.TB_CercaEmpreses = New System.Windows.Forms.TextBox()
         Me.DataEmpreses = New System.Windows.Forms.DataGridView()
-        Me.DataHistorial = New System.Windows.Forms.DataGridView()
-        Me.Label2 = New System.Windows.Forms.Label()
+        Me.Panel2 = New System.Windows.Forms.Panel()
+        Me.PanelControlHoras = New System.Windows.Forms.Panel()
+        Me.TB_HoresGastades = New System.Windows.Forms.TextBox()
+        Me.TB_HoresDegudes = New System.Windows.Forms.TextBox()
         Me.Label3 = New System.Windows.Forms.Label()
+        Me.Lbl_HoresDegudes = New System.Windows.Forms.Label()
         Me.Label4 = New System.Windows.Forms.Label()
+        Me.TB_HoresTotals = New System.Windows.Forms.TextBox()
         Me.Label5 = New System.Windows.Forms.Label()
         Me.TB_HoresDisponibles = New System.Windows.Forms.TextBox()
-        Me.TB_HoresGastades = New System.Windows.Forms.TextBox()
-        Me.TB_HoresTotals = New System.Windows.Forms.TextBox()
-        Me.Lbl_HoresDegudes = New System.Windows.Forms.Label()
-        Me.TB_HoresDegudes = New System.Windows.Forms.TextBox()
         Me.PanelGestio = New System.Windows.Forms.Panel()
         Me.Panel_RestarHores = New System.Windows.Forms.Panel()
         Me.Btn_restarHores = New System.Windows.Forms.Button()
@@ -66,21 +69,24 @@ Partial Class Principal
         Me.Panel_AfegirRestarHores = New System.Windows.Forms.Panel()
         Me.Btn_ObreRestarHores = New System.Windows.Forms.Button()
         Me.Btn_ObreAfegirHores = New System.Windows.Forms.Button()
-        Me.PanelControlHoras = New System.Windows.Forms.Panel()
+        Me.Label2 = New System.Windows.Forms.Label()
+        Me.DataHistorial = New System.Windows.Forms.DataGridView()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.PanelSuperior.SuspendLayout()
         Me.Panel1.SuspendLayout()
         CType(Me.PictureBox2, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.PanelEmpresas.SuspendLayout()
+        CType(Me.PB_EliminaFiltreId, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.PB_EliminaFiltre, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.DataEmpreses, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.DataHistorial, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.Panel2.SuspendLayout()
+        Me.PanelControlHoras.SuspendLayout()
         Me.PanelGestio.SuspendLayout()
         Me.Panel_RestarHores.SuspendLayout()
         Me.Panel_AfegirHores.SuspendLayout()
         Me.Panel_ComentarisTransaccio.SuspendLayout()
         Me.Panel_AfegirRestarHores.SuspendLayout()
-        Me.PanelControlHoras.SuspendLayout()
+        CType(Me.DataHistorial, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'PictureBox1
@@ -110,7 +116,7 @@ Partial Class Principal
         Me.PanelSuperior.Dock = System.Windows.Forms.DockStyle.Top
         Me.PanelSuperior.Location = New System.Drawing.Point(0, 0)
         Me.PanelSuperior.Name = "PanelSuperior"
-        Me.PanelSuperior.Size = New System.Drawing.Size(1539, 75)
+        Me.PanelSuperior.Size = New System.Drawing.Size(1507, 88)
         Me.PanelSuperior.TabIndex = 2
         '
         'Panel1
@@ -118,17 +124,65 @@ Partial Class Principal
         Me.Panel1.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.Panel1.BackColor = System.Drawing.Color.FromArgb(CType(CType(224, Byte), Integer), CType(CType(224, Byte), Integer), CType(CType(224, Byte), Integer))
-        Me.Panel1.Controls.Add(Me.PictureBox2)
+        Me.Panel1.Controls.Add(Me.Lbl_IdExit)
         Me.Panel1.Controls.Add(Me.PictureBox1)
         Me.Panel1.Controls.Add(Me.Btn_DesarObservacions)
         Me.Panel1.Controls.Add(Me.Label1)
         Me.Panel1.Controls.Add(Me.Label7)
         Me.Panel1.Controls.Add(Me.TB_ObservacionsCLient)
         Me.Panel1.Controls.Add(Me.Lbl_NomEmpresa)
-        Me.Panel1.Location = New System.Drawing.Point(12, 3)
+        Me.Panel1.Controls.Add(Me.PictureBox2)
+        Me.Panel1.Location = New System.Drawing.Point(11, 10)
         Me.Panel1.Name = "Panel1"
-        Me.Panel1.Size = New System.Drawing.Size(2597, 69)
+        Me.Panel1.Size = New System.Drawing.Size(1483, 69)
         Me.Panel1.TabIndex = 2
+        '
+        'Lbl_IdExit
+        '
+        Me.Lbl_IdExit.Font = New System.Drawing.Font("Bahnschrift Light SemiCondensed", 18.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point)
+        Me.Lbl_IdExit.Location = New System.Drawing.Point(424, 36)
+        Me.Lbl_IdExit.Name = "Lbl_IdExit"
+        Me.Lbl_IdExit.Size = New System.Drawing.Size(429, 28)
+        Me.Lbl_IdExit.TabIndex = 5
+        Me.Lbl_IdExit.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        '
+        'Btn_DesarObservacions
+        '
+        Me.Btn_DesarObservacions.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.Btn_DesarObservacions.Location = New System.Drawing.Point(1419, 22)
+        Me.Btn_DesarObservacions.Name = "Btn_DesarObservacions"
+        Me.Btn_DesarObservacions.Size = New System.Drawing.Size(56, 37)
+        Me.Btn_DesarObservacions.TabIndex = 3
+        Me.Btn_DesarObservacions.Text = "Desar"
+        Me.Btn_DesarObservacions.UseVisualStyleBackColor = True
+        '
+        'Label7
+        '
+        Me.Label7.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.Label7.AutoSize = True
+        Me.Label7.Location = New System.Drawing.Point(974, 6)
+        Me.Label7.Name = "Label7"
+        Me.Label7.Size = New System.Drawing.Size(154, 15)
+        Me.Label7.TabIndex = 2
+        Me.Label7.Text = "Observacions sobre el client"
+        '
+        'TB_ObservacionsCLient
+        '
+        Me.TB_ObservacionsCLient.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.TB_ObservacionsCLient.Location = New System.Drawing.Point(974, 22)
+        Me.TB_ObservacionsCLient.Multiline = True
+        Me.TB_ObservacionsCLient.Name = "TB_ObservacionsCLient"
+        Me.TB_ObservacionsCLient.Size = New System.Drawing.Size(439, 37)
+        Me.TB_ObservacionsCLient.TabIndex = 1
+        '
+        'Lbl_NomEmpresa
+        '
+        Me.Lbl_NomEmpresa.Font = New System.Drawing.Font("Bahnschrift Light SemiCondensed", 18.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point)
+        Me.Lbl_NomEmpresa.Location = New System.Drawing.Point(424, 4)
+        Me.Lbl_NomEmpresa.Name = "Lbl_NomEmpresa"
+        Me.Lbl_NomEmpresa.Size = New System.Drawing.Size(429, 32)
+        Me.Lbl_NomEmpresa.TabIndex = 0
+        Me.Lbl_NomEmpresa.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         '
         'PictureBox2
         '
@@ -140,59 +194,40 @@ Partial Class Principal
         Me.PictureBox2.TabIndex = 4
         Me.PictureBox2.TabStop = False
         '
-        'Btn_DesarObservacions
-        '
-        Me.Btn_DesarObservacions.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.Btn_DesarObservacions.Location = New System.Drawing.Point(3611, 23)
-        Me.Btn_DesarObservacions.Name = "Btn_DesarObservacions"
-        Me.Btn_DesarObservacions.Size = New System.Drawing.Size(56, 39)
-        Me.Btn_DesarObservacions.TabIndex = 3
-        Me.Btn_DesarObservacions.Text = "Desar"
-        Me.Btn_DesarObservacions.UseVisualStyleBackColor = True
-        '
-        'Label7
-        '
-        Me.Label7.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.Label7.AutoSize = True
-        Me.Label7.Location = New System.Drawing.Point(3116, 7)
-        Me.Label7.Name = "Label7"
-        Me.Label7.Size = New System.Drawing.Size(154, 15)
-        Me.Label7.TabIndex = 2
-        Me.Label7.Text = "Observacions sobre el client"
-        '
-        'TB_ObservacionsCLient
-        '
-        Me.TB_ObservacionsCLient.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.TB_ObservacionsCLient.Location = New System.Drawing.Point(3116, 25)
-        Me.TB_ObservacionsCLient.Multiline = True
-        Me.TB_ObservacionsCLient.Name = "TB_ObservacionsCLient"
-        Me.TB_ObservacionsCLient.Size = New System.Drawing.Size(489, 37)
-        Me.TB_ObservacionsCLient.TabIndex = 1
-        '
-        'Lbl_NomEmpresa
-        '
-        Me.Lbl_NomEmpresa.Font = New System.Drawing.Font("Bahnschrift Light SemiCondensed", 18.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point)
-        Me.Lbl_NomEmpresa.Location = New System.Drawing.Point(424, 17)
-        Me.Lbl_NomEmpresa.Name = "Lbl_NomEmpresa"
-        Me.Lbl_NomEmpresa.Size = New System.Drawing.Size(429, 37)
-        Me.Lbl_NomEmpresa.TabIndex = 0
-        Me.Lbl_NomEmpresa.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
-        '
         'PanelEmpresas
         '
+        Me.PanelEmpresas.Controls.Add(Me.PB_EliminaFiltreId)
+        Me.PanelEmpresas.Controls.Add(Me.TB_CercaId)
         Me.PanelEmpresas.Controls.Add(Me.PB_EliminaFiltre)
         Me.PanelEmpresas.Controls.Add(Me.TB_CercaEmpreses)
         Me.PanelEmpresas.Controls.Add(Me.DataEmpreses)
         Me.PanelEmpresas.Dock = System.Windows.Forms.DockStyle.Left
-        Me.PanelEmpresas.Location = New System.Drawing.Point(0, 75)
+        Me.PanelEmpresas.Location = New System.Drawing.Point(0, 88)
         Me.PanelEmpresas.Name = "PanelEmpresas"
-        Me.PanelEmpresas.Size = New System.Drawing.Size(303, 580)
+        Me.PanelEmpresas.Size = New System.Drawing.Size(361, 567)
         Me.PanelEmpresas.TabIndex = 3
+        '
+        'PB_EliminaFiltreId
+        '
+        Me.PB_EliminaFiltreId.Image = Global.Control_Hores.My.Resources.Resources.icono_eliminar
+        Me.PB_EliminaFiltreId.Location = New System.Drawing.Point(323, 26)
+        Me.PB_EliminaFiltreId.Name = "PB_EliminaFiltreId"
+        Me.PB_EliminaFiltreId.Size = New System.Drawing.Size(25, 23)
+        Me.PB_EliminaFiltreId.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom
+        Me.PB_EliminaFiltreId.TabIndex = 4
+        Me.PB_EliminaFiltreId.TabStop = False
+        '
+        'TB_CercaId
+        '
+        Me.TB_CercaId.Location = New System.Drawing.Point(222, 26)
+        Me.TB_CercaId.Name = "TB_CercaId"
+        Me.TB_CercaId.Size = New System.Drawing.Size(95, 23)
+        Me.TB_CercaId.TabIndex = 3
         '
         'PB_EliminaFiltre
         '
         Me.PB_EliminaFiltre.Image = Global.Control_Hores.My.Resources.Resources.icono_eliminar
-        Me.PB_EliminaFiltre.Location = New System.Drawing.Point(263, 26)
+        Me.PB_EliminaFiltre.Location = New System.Drawing.Point(161, 26)
         Me.PB_EliminaFiltre.Name = "PB_EliminaFiltre"
         Me.PB_EliminaFiltre.Size = New System.Drawing.Size(25, 23)
         Me.PB_EliminaFiltre.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom
@@ -203,7 +238,7 @@ Partial Class Principal
         '
         Me.TB_CercaEmpreses.Location = New System.Drawing.Point(12, 26)
         Me.TB_CercaEmpreses.Name = "TB_CercaEmpreses"
-        Me.TB_CercaEmpreses.Size = New System.Drawing.Size(229, 23)
+        Me.TB_CercaEmpreses.Size = New System.Drawing.Size(143, 23)
         Me.TB_CercaEmpreses.TabIndex = 1
         '
         'DataEmpreses
@@ -211,8 +246,8 @@ Partial Class Principal
         Me.DataEmpreses.AllowUserToAddRows = False
         Me.DataEmpreses.AllowUserToDeleteRows = False
         Me.DataEmpreses.AllowUserToResizeRows = False
-        DataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(CType(CType(224, Byte), Integer), CType(CType(224, Byte), Integer), CType(CType(224, Byte), Integer))
-        Me.DataEmpreses.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle1
+        DataGridViewCellStyle3.BackColor = System.Drawing.Color.FromArgb(CType(CType(224, Byte), Integer), CType(CType(224, Byte), Integer), CType(CType(224, Byte), Integer))
+        Me.DataEmpreses.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle3
         Me.DataEmpreses.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
             Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
@@ -226,41 +261,61 @@ Partial Class Principal
         Me.DataEmpreses.RowTemplate.Height = 25
         Me.DataEmpreses.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
         Me.DataEmpreses.ShowEditingIcon = False
-        Me.DataEmpreses.Size = New System.Drawing.Size(276, 530)
+        Me.DataEmpreses.Size = New System.Drawing.Size(334, 494)
         Me.DataEmpreses.TabIndex = 0
         '
-        'DataHistorial
+        'Panel2
         '
-        Me.DataHistorial.AllowUserToAddRows = False
-        Me.DataHistorial.AllowUserToDeleteRows = False
-        Me.DataHistorial.AllowUserToResizeRows = False
-        DataGridViewCellStyle2.BackColor = System.Drawing.Color.FromArgb(CType(CType(224, Byte), Integer), CType(CType(224, Byte), Integer), CType(CType(224, Byte), Integer))
-        Me.DataHistorial.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle2
-        Me.DataHistorial.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
-            Or System.Windows.Forms.AnchorStyles.Left) _
-            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.DataHistorial.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill
-        Me.DataHistorial.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.DataHistorial.Location = New System.Drawing.Point(318, 190)
-        Me.DataHistorial.MultiSelect = False
-        Me.DataHistorial.Name = "DataHistorial"
-        Me.DataHistorial.ReadOnly = True
-        Me.DataHistorial.RowHeadersVisible = False
-        Me.DataHistorial.RowTemplate.Height = 25
-        Me.DataHistorial.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.DataHistorial.ShowEditingIcon = False
-        Me.DataHistorial.Size = New System.Drawing.Size(1209, 453)
-        Me.DataHistorial.TabIndex = 4
+        Me.Panel2.Controls.Add(Me.PanelControlHoras)
+        Me.Panel2.Controls.Add(Me.PanelGestio)
+        Me.Panel2.Controls.Add(Me.Label2)
+        Me.Panel2.Controls.Add(Me.DataHistorial)
+        Me.Panel2.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.Panel2.Location = New System.Drawing.Point(361, 88)
+        Me.Panel2.Name = "Panel2"
+        Me.Panel2.Padding = New System.Windows.Forms.Padding(5)
+        Me.Panel2.Size = New System.Drawing.Size(1146, 567)
+        Me.Panel2.TabIndex = 4
         '
-        'Label2
+        'PanelControlHoras
         '
-        Me.Label2.AutoSize = True
-        Me.Label2.Font = New System.Drawing.Font("Bahnschrift Light SemiCondensed", 18.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point)
-        Me.Label2.Location = New System.Drawing.Point(318, 78)
-        Me.Label2.Name = "Label2"
-        Me.Label2.Size = New System.Drawing.Size(166, 29)
-        Me.Label2.TabIndex = 5
-        Me.Label2.Text = "Historial d'hores"
+        Me.PanelControlHoras.Controls.Add(Me.TB_HoresGastades)
+        Me.PanelControlHoras.Controls.Add(Me.TB_HoresDegudes)
+        Me.PanelControlHoras.Controls.Add(Me.Label3)
+        Me.PanelControlHoras.Controls.Add(Me.Lbl_HoresDegudes)
+        Me.PanelControlHoras.Controls.Add(Me.Label4)
+        Me.PanelControlHoras.Controls.Add(Me.TB_HoresTotals)
+        Me.PanelControlHoras.Controls.Add(Me.Label5)
+        Me.PanelControlHoras.Controls.Add(Me.TB_HoresDisponibles)
+        Me.PanelControlHoras.Location = New System.Drawing.Point(15, 41)
+        Me.PanelControlHoras.Name = "PanelControlHoras"
+        Me.PanelControlHoras.Size = New System.Drawing.Size(433, 74)
+        Me.PanelControlHoras.TabIndex = 19
+        Me.PanelControlHoras.Visible = False
+        '
+        'TB_HoresGastades
+        '
+        Me.TB_HoresGastades.Font = New System.Drawing.Font("Bahnschrift Light SemiCondensed", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point)
+        Me.TB_HoresGastades.Location = New System.Drawing.Point(147, 7)
+        Me.TB_HoresGastades.Name = "TB_HoresGastades"
+        Me.TB_HoresGastades.ReadOnly = True
+        Me.TB_HoresGastades.Size = New System.Drawing.Size(68, 30)
+        Me.TB_HoresGastades.TabIndex = 10
+        Me.TB_HoresGastades.Text = "0"
+        Me.TB_HoresGastades.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
+        '
+        'TB_HoresDegudes
+        '
+        Me.TB_HoresDegudes.BackColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(128, Byte), Integer), CType(CType(128, Byte), Integer))
+        Me.TB_HoresDegudes.Font = New System.Drawing.Font("Bahnschrift Light SemiCondensed", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point)
+        Me.TB_HoresDegudes.Location = New System.Drawing.Point(360, 37)
+        Me.TB_HoresDegudes.Name = "TB_HoresDegudes"
+        Me.TB_HoresDegudes.ReadOnly = True
+        Me.TB_HoresDegudes.Size = New System.Drawing.Size(68, 30)
+        Me.TB_HoresDegudes.TabIndex = 13
+        Me.TB_HoresDegudes.Text = "0"
+        Me.TB_HoresDegudes.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
+        Me.TB_HoresDegudes.Visible = False
         '
         'Label3
         '
@@ -272,6 +327,17 @@ Partial Class Principal
         Me.Label3.TabIndex = 6
         Me.Label3.Text = "Disponibles"
         '
+        'Lbl_HoresDegudes
+        '
+        Me.Lbl_HoresDegudes.AutoSize = True
+        Me.Lbl_HoresDegudes.Font = New System.Drawing.Font("Bahnschrift Light SemiCondensed", 18.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point)
+        Me.Lbl_HoresDegudes.Location = New System.Drawing.Point(231, 37)
+        Me.Lbl_HoresDegudes.Name = "Lbl_HoresDegudes"
+        Me.Lbl_HoresDegudes.Size = New System.Drawing.Size(93, 29)
+        Me.Lbl_HoresDegudes.TabIndex = 12
+        Me.Lbl_HoresDegudes.Text = "Degudes"
+        Me.Lbl_HoresDegudes.Visible = False
+        '
         'Label4
         '
         Me.Label4.AutoSize = True
@@ -281,6 +347,17 @@ Partial Class Principal
         Me.Label4.Size = New System.Drawing.Size(99, 29)
         Me.Label4.TabIndex = 7
         Me.Label4.Text = "Gastades"
+        '
+        'TB_HoresTotals
+        '
+        Me.TB_HoresTotals.Font = New System.Drawing.Font("Bahnschrift Light SemiCondensed", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point)
+        Me.TB_HoresTotals.Location = New System.Drawing.Point(147, 36)
+        Me.TB_HoresTotals.Name = "TB_HoresTotals"
+        Me.TB_HoresTotals.ReadOnly = True
+        Me.TB_HoresTotals.Size = New System.Drawing.Size(68, 30)
+        Me.TB_HoresTotals.TabIndex = 11
+        Me.TB_HoresTotals.Text = "0"
+        Me.TB_HoresTotals.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
         '
         'Label5
         '
@@ -303,52 +380,6 @@ Partial Class Principal
         Me.TB_HoresDisponibles.Text = "0"
         Me.TB_HoresDisponibles.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
         '
-        'TB_HoresGastades
-        '
-        Me.TB_HoresGastades.Font = New System.Drawing.Font("Bahnschrift Light SemiCondensed", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point)
-        Me.TB_HoresGastades.Location = New System.Drawing.Point(147, 7)
-        Me.TB_HoresGastades.Name = "TB_HoresGastades"
-        Me.TB_HoresGastades.ReadOnly = True
-        Me.TB_HoresGastades.Size = New System.Drawing.Size(68, 30)
-        Me.TB_HoresGastades.TabIndex = 10
-        Me.TB_HoresGastades.Text = "0"
-        Me.TB_HoresGastades.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
-        '
-        'TB_HoresTotals
-        '
-        Me.TB_HoresTotals.Font = New System.Drawing.Font("Bahnschrift Light SemiCondensed", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point)
-        Me.TB_HoresTotals.Location = New System.Drawing.Point(147, 36)
-        Me.TB_HoresTotals.Name = "TB_HoresTotals"
-        Me.TB_HoresTotals.ReadOnly = True
-        Me.TB_HoresTotals.Size = New System.Drawing.Size(68, 30)
-        Me.TB_HoresTotals.TabIndex = 11
-        Me.TB_HoresTotals.Text = "0"
-        Me.TB_HoresTotals.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
-        '
-        'Lbl_HoresDegudes
-        '
-        Me.Lbl_HoresDegudes.AutoSize = True
-        Me.Lbl_HoresDegudes.Font = New System.Drawing.Font("Bahnschrift Light SemiCondensed", 18.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point)
-        Me.Lbl_HoresDegudes.Location = New System.Drawing.Point(231, 37)
-        Me.Lbl_HoresDegudes.Name = "Lbl_HoresDegudes"
-        Me.Lbl_HoresDegudes.Size = New System.Drawing.Size(93, 29)
-        Me.Lbl_HoresDegudes.TabIndex = 12
-        Me.Lbl_HoresDegudes.Text = "Degudes"
-        Me.Lbl_HoresDegudes.Visible = False
-        '
-        'TB_HoresDegudes
-        '
-        Me.TB_HoresDegudes.BackColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(128, Byte), Integer), CType(CType(128, Byte), Integer))
-        Me.TB_HoresDegudes.Font = New System.Drawing.Font("Bahnschrift Light SemiCondensed", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point)
-        Me.TB_HoresDegudes.Location = New System.Drawing.Point(360, 37)
-        Me.TB_HoresDegudes.Name = "TB_HoresDegudes"
-        Me.TB_HoresDegudes.ReadOnly = True
-        Me.TB_HoresDegudes.Size = New System.Drawing.Size(68, 30)
-        Me.TB_HoresDegudes.TabIndex = 13
-        Me.TB_HoresDegudes.Text = "0"
-        Me.TB_HoresDegudes.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
-        Me.TB_HoresDegudes.Visible = False
-        '
         'PanelGestio
         '
         Me.PanelGestio.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
@@ -358,10 +389,10 @@ Partial Class Principal
         Me.PanelGestio.Controls.Add(Me.Panel_AfegirHores)
         Me.PanelGestio.Controls.Add(Me.Panel_ComentarisTransaccio)
         Me.PanelGestio.Controls.Add(Me.Panel_AfegirRestarHores)
-        Me.PanelGestio.Location = New System.Drawing.Point(757, 82)
+        Me.PanelGestio.Location = New System.Drawing.Point(454, 19)
         Me.PanelGestio.Name = "PanelGestio"
-        Me.PanelGestio.Size = New System.Drawing.Size(770, 100)
-        Me.PanelGestio.TabIndex = 14
+        Me.PanelGestio.Size = New System.Drawing.Size(679, 100)
+        Me.PanelGestio.TabIndex = 18
         Me.PanelGestio.Visible = False
         '
         'Panel_RestarHores
@@ -497,10 +528,10 @@ Partial Class Principal
         Me.Panel_ComentarisTransaccio.Controls.Add(Me.TB_Comentaris)
         Me.Panel_ComentarisTransaccio.Controls.Add(Me.Label6)
         Me.Panel_ComentarisTransaccio.Dock = System.Windows.Forms.DockStyle.Right
-        Me.Panel_ComentarisTransaccio.Location = New System.Drawing.Point(433, 0)
+        Me.Panel_ComentarisTransaccio.Location = New System.Drawing.Point(464, 0)
         Me.Panel_ComentarisTransaccio.Name = "Panel_ComentarisTransaccio"
         Me.Panel_ComentarisTransaccio.Padding = New System.Windows.Forms.Padding(10, 0, 0, 0)
-        Me.Panel_ComentarisTransaccio.Size = New System.Drawing.Size(337, 100)
+        Me.Panel_ComentarisTransaccio.Size = New System.Drawing.Size(215, 100)
         Me.Panel_ComentarisTransaccio.TabIndex = 13
         Me.Panel_ComentarisTransaccio.Visible = False
         '
@@ -512,13 +543,13 @@ Partial Class Principal
         Me.TB_Comentaris.Location = New System.Drawing.Point(13, 29)
         Me.TB_Comentaris.Multiline = True
         Me.TB_Comentaris.Name = "TB_Comentaris"
-        Me.TB_Comentaris.Size = New System.Drawing.Size(316, 57)
+        Me.TB_Comentaris.Size = New System.Drawing.Size(195, 57)
         Me.TB_Comentaris.TabIndex = 6
         '
         'Label6
         '
         Me.Label6.AutoSize = True
-        Me.Label6.Location = New System.Drawing.Point(9, 11)
+        Me.Label6.Location = New System.Drawing.Point(13, 11)
         Me.Label6.Name = "Label6"
         Me.Label6.Size = New System.Drawing.Size(153, 15)
         Me.Label6.TabIndex = 5
@@ -557,31 +588,45 @@ Partial Class Principal
         Me.Btn_ObreAfegirHores.Text = "Afegir hores"
         Me.Btn_ObreAfegirHores.UseVisualStyleBackColor = True
         '
-        'PanelControlHoras
+        'Label2
         '
-        Me.PanelControlHoras.Controls.Add(Me.TB_HoresGastades)
-        Me.PanelControlHoras.Controls.Add(Me.TB_HoresDegudes)
-        Me.PanelControlHoras.Controls.Add(Me.Label3)
-        Me.PanelControlHoras.Controls.Add(Me.Lbl_HoresDegudes)
-        Me.PanelControlHoras.Controls.Add(Me.Label4)
-        Me.PanelControlHoras.Controls.Add(Me.TB_HoresTotals)
-        Me.PanelControlHoras.Controls.Add(Me.Label5)
-        Me.PanelControlHoras.Controls.Add(Me.TB_HoresDisponibles)
-        Me.PanelControlHoras.Location = New System.Drawing.Point(318, 110)
-        Me.PanelControlHoras.Name = "PanelControlHoras"
-        Me.PanelControlHoras.Size = New System.Drawing.Size(433, 74)
-        Me.PanelControlHoras.TabIndex = 15
-        Me.PanelControlHoras.Visible = False
+        Me.Label2.AutoSize = True
+        Me.Label2.Font = New System.Drawing.Font("Bahnschrift Light SemiCondensed", 18.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point)
+        Me.Label2.Location = New System.Drawing.Point(13, 13)
+        Me.Label2.Name = "Label2"
+        Me.Label2.Size = New System.Drawing.Size(166, 29)
+        Me.Label2.TabIndex = 17
+        Me.Label2.Text = "Historial d'hores"
+        '
+        'DataHistorial
+        '
+        Me.DataHistorial.AllowUserToAddRows = False
+        Me.DataHistorial.AllowUserToDeleteRows = False
+        Me.DataHistorial.AllowUserToResizeRows = False
+        DataGridViewCellStyle4.BackColor = System.Drawing.Color.FromArgb(CType(CType(224, Byte), Integer), CType(CType(224, Byte), Integer), CType(CType(224, Byte), Integer))
+        Me.DataHistorial.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle4
+        Me.DataHistorial.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.DataHistorial.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill
+        Me.DataHistorial.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        Me.DataHistorial.Location = New System.Drawing.Point(15, 125)
+        Me.DataHistorial.MultiSelect = False
+        Me.DataHistorial.Name = "DataHistorial"
+        Me.DataHistorial.ReadOnly = True
+        Me.DataHistorial.RowHeadersVisible = False
+        Me.DataHistorial.RowTemplate.Height = 25
+        Me.DataHistorial.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
+        Me.DataHistorial.ShowEditingIcon = False
+        Me.DataHistorial.Size = New System.Drawing.Size(1118, 430)
+        Me.DataHistorial.TabIndex = 16
         '
         'Principal
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(7.0!, 15.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(1539, 655)
-        Me.Controls.Add(Me.PanelControlHoras)
-        Me.Controls.Add(Me.PanelGestio)
-        Me.Controls.Add(Me.Label2)
-        Me.Controls.Add(Me.DataHistorial)
+        Me.ClientSize = New System.Drawing.Size(1507, 655)
+        Me.Controls.Add(Me.Panel2)
         Me.Controls.Add(Me.PanelEmpresas)
         Me.Controls.Add(Me.PanelSuperior)
         Me.MinimumSize = New System.Drawing.Size(1470, 694)
@@ -595,9 +640,13 @@ Partial Class Principal
         CType(Me.PictureBox2, System.ComponentModel.ISupportInitialize).EndInit()
         Me.PanelEmpresas.ResumeLayout(False)
         Me.PanelEmpresas.PerformLayout()
+        CType(Me.PB_EliminaFiltreId, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.PB_EliminaFiltre, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.DataEmpreses, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.DataHistorial, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.Panel2.ResumeLayout(False)
+        Me.Panel2.PerformLayout()
+        Me.PanelControlHoras.ResumeLayout(False)
+        Me.PanelControlHoras.PerformLayout()
         Me.PanelGestio.ResumeLayout(False)
         Me.Panel_RestarHores.ResumeLayout(False)
         Me.Panel_RestarHores.PerformLayout()
@@ -606,10 +655,8 @@ Partial Class Principal
         Me.Panel_ComentarisTransaccio.ResumeLayout(False)
         Me.Panel_ComentarisTransaccio.PerformLayout()
         Me.Panel_AfegirRestarHores.ResumeLayout(False)
-        Me.PanelControlHoras.ResumeLayout(False)
-        Me.PanelControlHoras.PerformLayout()
+        CType(Me.DataHistorial, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
-        Me.PerformLayout()
 
     End Sub
 
@@ -620,40 +667,44 @@ Partial Class Principal
     Friend WithEvents PB_EliminaFiltre As PictureBox
     Friend WithEvents TB_CercaEmpreses As TextBox
     Friend WithEvents DataEmpreses As DataGridView
-    Friend WithEvents DataHistorial As DataGridView
-    Friend WithEvents Label2 As Label
-    Friend WithEvents Label3 As Label
-    Friend WithEvents Label4 As Label
-    Friend WithEvents Label5 As Label
-    Friend WithEvents TB_HoresDisponibles As TextBox
-    Friend WithEvents TB_HoresGastades As TextBox
-    Friend WithEvents TB_HoresTotals As TextBox
-    Friend WithEvents Lbl_HoresDegudes As Label
-    Friend WithEvents TB_HoresDegudes As TextBox
-    Friend WithEvents PanelGestio As Panel
-    Friend WithEvents Label6 As Label
-    Friend WithEvents TB_HoresRestar As TextBox
-    Friend WithEvents Btn_ObreRestarHores As Button
-    Friend WithEvents TB_HoresAfegir As TextBox
-    Friend WithEvents Btn_ObreAfegirHores As Button
     Friend WithEvents Panel1 As Panel
     Friend WithEvents Btn_DesarObservacions As Button
     Friend WithEvents Label7 As Label
     Friend WithEvents TB_ObservacionsCLient As TextBox
     Friend WithEvents Lbl_NomEmpresa As Label
     Friend WithEvents PictureBox2 As PictureBox
+    Friend WithEvents PB_EliminaFiltreId As PictureBox
+    Friend WithEvents TB_CercaId As TextBox
+    Friend WithEvents Panel2 As Panel
     Friend WithEvents PanelControlHoras As Panel
-    Friend WithEvents Label9 As Label
-    Friend WithEvents TB_Import As TextBox
-    Friend WithEvents Label8 As Label
-    Friend WithEvents TB_PreuHora As TextBox
-    Friend WithEvents Panel_ComentarisTransaccio As Panel
+    Friend WithEvents TB_HoresGastades As TextBox
+    Friend WithEvents TB_HoresDegudes As TextBox
+    Friend WithEvents Label3 As Label
+    Friend WithEvents Lbl_HoresDegudes As Label
+    Friend WithEvents Label4 As Label
+    Friend WithEvents TB_HoresTotals As TextBox
+    Friend WithEvents Label5 As Label
+    Friend WithEvents TB_HoresDisponibles As TextBox
+    Friend WithEvents PanelGestio As Panel
     Friend WithEvents Panel_RestarHores As Panel
     Friend WithEvents Btn_restarHores As Button
     Friend WithEvents Label11 As Label
+    Friend WithEvents TB_HoresRestar As TextBox
     Friend WithEvents Panel_AfegirHores As Panel
     Friend WithEvents Btn_AfegirHores As Button
     Friend WithEvents Label10 As Label
-    Friend WithEvents Panel_AfegirRestarHores As Panel
+    Friend WithEvents Label9 As Label
+    Friend WithEvents TB_HoresAfegir As TextBox
+    Friend WithEvents TB_Import As TextBox
+    Friend WithEvents TB_PreuHora As TextBox
+    Friend WithEvents Label8 As Label
+    Friend WithEvents Panel_ComentarisTransaccio As Panel
     Friend WithEvents TB_Comentaris As TextBox
+    Friend WithEvents Label6 As Label
+    Friend WithEvents Panel_AfegirRestarHores As Panel
+    Friend WithEvents Btn_ObreRestarHores As Button
+    Friend WithEvents Btn_ObreAfegirHores As Button
+    Friend WithEvents Label2 As Label
+    Friend WithEvents DataHistorial As DataGridView
+    Friend WithEvents Lbl_IdExit As Label
 End Class

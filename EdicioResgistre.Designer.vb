@@ -32,7 +32,7 @@ Partial Class EdicioResgistre
         Me.Label3 = New System.Windows.Forms.Label()
         Me.TB_Hores = New System.Windows.Forms.TextBox()
         Me.Label2 = New System.Windows.Forms.Label()
-        Me.Data = New System.Windows.Forms.DateTimePicker()
+        Me.TP_DataRegistre = New System.Windows.Forms.DateTimePicker()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.SuspendLayout()
         '
@@ -58,6 +58,7 @@ Partial Class EdicioResgistre
         '
         'TB_Import
         '
+        Me.TB_Import.Enabled = False
         Me.TB_Import.Location = New System.Drawing.Point(267, 99)
         Me.TB_Import.Name = "TB_Import"
         Me.TB_Import.Size = New System.Drawing.Size(100, 23)
@@ -121,12 +122,12 @@ Partial Class EdicioResgistre
         Me.Label2.TabIndex = 14
         Me.Label2.Text = "Hores"
         '
-        'Data
+        'TP_DataRegistre
         '
-        Me.Data.Location = New System.Drawing.Point(128, 21)
-        Me.Data.Name = "Data"
-        Me.Data.Size = New System.Drawing.Size(239, 23)
-        Me.Data.TabIndex = 13
+        Me.TP_DataRegistre.Location = New System.Drawing.Point(128, 21)
+        Me.TP_DataRegistre.Name = "TP_DataRegistre"
+        Me.TP_DataRegistre.Size = New System.Drawing.Size(239, 23)
+        Me.TP_DataRegistre.TabIndex = 13
         '
         'Label1
         '
@@ -152,7 +153,7 @@ Partial Class EdicioResgistre
         Me.Controls.Add(Me.Label3)
         Me.Controls.Add(Me.TB_Hores)
         Me.Controls.Add(Me.Label2)
-        Me.Controls.Add(Me.Data)
+        Me.Controls.Add(Me.TP_DataRegistre)
         Me.Controls.Add(Me.Label1)
         Me.Name = "EdicioResgistre"
         Me.Text = "Edicio de Registre"
@@ -171,6 +172,6 @@ Partial Class EdicioResgistre
     Friend WithEvents Label3 As Label
     Friend WithEvents TB_Hores As TextBox
     Friend WithEvents Label2 As Label
-    Friend WithEvents Data As DateTimePicker
+    Friend WithEvents TP_DataRegistre As DateTimePicker
     Friend WithEvents Label1 As Label
 End Class

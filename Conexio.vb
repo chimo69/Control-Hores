@@ -18,11 +18,17 @@ Module Conexio
         conexion.Close()
         Return DT
     End Function
-    Public Function CarregaClients(Text As String) As DataTable
+    Public Function CarregaClients(Text As String, idBuscar As String) As DataTable
         Dim DT As New DataTable
-        Dim Query As String = "SELECT * FROM Clients WHERE Nom LIKE '%' || @textBuscar || '%'"
+        Dim Query As String = "SELECT Clients.*, SUM(Historial.hores) as Hores
+                               FROM Clients
+                               LEFT JOIN Historial ON Clients.ID = Historial.Client
+                               WHERE Clients.Nom LIKE '%' || @textBuscar || '%' AND Clients.IdExit LIKE '%' || @idBuscar || '%'
+                               GROUP bY Clients.ID "
+
         Dim CMD As New SQLiteCommand(Query, conexion)
         CMD.Parameters.AddWithValue("@textBuscar", Text)
+        CMD.Parameters.AddWithValue("@idBuscar", idBuscar)
         Dim DA As New SQLiteDataAdapter(CMD)
         DA.Fill(DT)
         conexion.Close()
@@ -31,8 +37,9 @@ Module Conexio
     Public Function CarregaHistorial() As DataTable
         Dim DT As New DataTable
         Dim Query As String = "Select Historial.Id,
+                                      Historial.client,
                                       Strftime('%d-%m-%Y  %H:%M' , Historial.Data) as 'Data transacció',
-                                      Clients.Nom,
+                                      Clients.Nom,                        
                                       Transaccions.id as idTransaccio,
                                       Transaccions.Nom as 'Transacció',
                                       Historial.Hores,
@@ -51,6 +58,7 @@ Module Conexio
     Public Function CarregaHistorial(IdEmpresa As Integer) As DataTable
         Dim DT As New DataTable
         Dim Query As String = "Select Historial.Id,
+                               Historial.Client,
                                Strftime('%d-%m-%Y  %H:%M', Historial.Data) as 'Data transacció',
                                Clients.Nom,
                                Transaccions.id as idTransaccio,
@@ -126,6 +134,30 @@ Module Conexio
         Try
             conexion.Open()
             CMD.Parameters.AddWithValue("@IdRegistre", idRegistre)
+
+            If conexion.State = ConnectionState.Open Then
+                CMD.ExecuteNonQuery()
+            End If
+            Return True
+        Catch ex As Exception
+            Return False
+        End Try
+        conexion.Close()
+    End Function
+    Public Function ActualitzaRegistre(idRegistre As Integer, Data As Date, Hores As Double, PreuHora As Double, Import As Double, Observacions As String)
+        Dim Query As String = "UPDATE Historial SET Data=@Data, Hores=@Hores, PreuHora=@PreuHora, Import=@Import, Observacions=@Observacions WHERE ID=@IdRegistre"
+        Dim CMD As New SQLiteCommand(Query, conexion)
+
+        Try
+            conexion.Open()
+            With CMD
+                .Parameters.AddWithValue("@IdRegistre", idRegistre)
+                .Parameters.AddWithValue("@Data", Data)
+                .Parameters.AddWithValue("@Hores", Hores)
+                .Parameters.AddWithValue("@Import", Import)
+                .Parameters.AddWithValue("@Observacions", Observacions)
+                .Parameters.AddWithValue("@PreuHora", PreuHora)
+            End With
 
             If conexion.State = ConnectionState.Open Then
                 CMD.ExecuteNonQuery()
