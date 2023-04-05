@@ -45,4 +45,9 @@
 
         End If
     End Sub
+    Private Sub ImpedeixLletres(sender As Object, e As KeyPressEventArgs) Handles TB_IdExit.KeyPress
+        If Char.IsLetter(e.KeyChar) Then
+            e.Handled = True
+        End If
+    End Sub
 End Class

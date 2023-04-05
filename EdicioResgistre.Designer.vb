@@ -34,13 +34,17 @@ Partial Class EdicioResgistre
         Me.Label2 = New System.Windows.Forms.Label()
         Me.TP_DataRegistre = New System.Windows.Forms.DateTimePicker()
         Me.Label1 = New System.Windows.Forms.Label()
+        Me.Label6 = New System.Windows.Forms.Label()
+        Me.TB_Arxiu = New System.Windows.Forms.TextBox()
+        Me.Btn_EditarRuta = New System.Windows.Forms.Button()
+        Me.Btn_BorrarRuta = New System.Windows.Forms.Button()
         Me.SuspendLayout()
         '
         'Btn_EliminaRegistre
         '
         Me.Btn_EliminaRegistre.BackColor = System.Drawing.Color.IndianRed
         Me.Btn_EliminaRegistre.ForeColor = System.Drawing.SystemColors.Control
-        Me.Btn_EliminaRegistre.Location = New System.Drawing.Point(128, 237)
+        Me.Btn_EliminaRegistre.Location = New System.Drawing.Point(128, 305)
         Me.Btn_EliminaRegistre.Name = "Btn_EliminaRegistre"
         Me.Btn_EliminaRegistre.Size = New System.Drawing.Size(116, 40)
         Me.Btn_EliminaRegistre.TabIndex = 23
@@ -49,7 +53,7 @@ Partial Class EdicioResgistre
         '
         'Btn_ActualitzaRegistre
         '
-        Me.Btn_ActualitzaRegistre.Location = New System.Drawing.Point(251, 237)
+        Me.Btn_ActualitzaRegistre.Location = New System.Drawing.Point(251, 305)
         Me.Btn_ActualitzaRegistre.Name = "Btn_ActualitzaRegistre"
         Me.Btn_ActualitzaRegistre.Size = New System.Drawing.Size(116, 40)
         Me.Btn_ActualitzaRegistre.TabIndex = 22
@@ -75,16 +79,16 @@ Partial Class EdicioResgistre
         '
         'TB_Observacions
         '
-        Me.TB_Observacions.Location = New System.Drawing.Point(128, 143)
+        Me.TB_Observacions.Location = New System.Drawing.Point(21, 225)
         Me.TB_Observacions.Multiline = True
         Me.TB_Observacions.Name = "TB_Observacions"
-        Me.TB_Observacions.Size = New System.Drawing.Size(239, 65)
+        Me.TB_Observacions.Size = New System.Drawing.Size(345, 65)
         Me.TB_Observacions.TabIndex = 19
         '
         'Label4
         '
         Me.Label4.AutoSize = True
-        Me.Label4.Location = New System.Drawing.Point(21, 151)
+        Me.Label4.Location = New System.Drawing.Point(21, 207)
         Me.Label4.Name = "Label4"
         Me.Label4.Size = New System.Drawing.Size(78, 15)
         Me.Label4.TabIndex = 18
@@ -138,11 +142,51 @@ Partial Class EdicioResgistre
         Me.Label1.TabIndex = 12
         Me.Label1.Text = "Data transacció"
         '
+        'Label6
+        '
+        Me.Label6.AutoSize = True
+        Me.Label6.Location = New System.Drawing.Point(21, 146)
+        Me.Label6.Name = "Label6"
+        Me.Label6.Size = New System.Drawing.Size(100, 15)
+        Me.Label6.TabIndex = 24
+        Me.Label6.Text = "Document adjunt"
+        '
+        'TB_Arxiu
+        '
+        Me.TB_Arxiu.Enabled = False
+        Me.TB_Arxiu.Location = New System.Drawing.Point(21, 167)
+        Me.TB_Arxiu.Name = "TB_Arxiu"
+        Me.TB_Arxiu.Size = New System.Drawing.Size(267, 23)
+        Me.TB_Arxiu.TabIndex = 25
+        '
+        'Btn_EditarRuta
+        '
+        Me.Btn_EditarRuta.BackgroundImage = Global.Control_Hores.My.Resources.Resources.editar
+        Me.Btn_EditarRuta.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom
+        Me.Btn_EditarRuta.Location = New System.Drawing.Point(333, 161)
+        Me.Btn_EditarRuta.Name = "Btn_EditarRuta"
+        Me.Btn_EditarRuta.Size = New System.Drawing.Size(33, 33)
+        Me.Btn_EditarRuta.TabIndex = 27
+        Me.Btn_EditarRuta.UseVisualStyleBackColor = True
+        '
+        'Btn_BorrarRuta
+        '
+        Me.Btn_BorrarRuta.Image = Global.Control_Hores.My.Resources.Resources.icono_eliminar
+        Me.Btn_BorrarRuta.Location = New System.Drawing.Point(294, 161)
+        Me.Btn_BorrarRuta.Name = "Btn_BorrarRuta"
+        Me.Btn_BorrarRuta.Size = New System.Drawing.Size(33, 33)
+        Me.Btn_BorrarRuta.TabIndex = 28
+        Me.Btn_BorrarRuta.UseVisualStyleBackColor = True
+        '
         'EdicioResgistre
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(7.0!, 15.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(414, 308)
+        Me.ClientSize = New System.Drawing.Size(414, 366)
+        Me.Controls.Add(Me.Btn_BorrarRuta)
+        Me.Controls.Add(Me.Btn_EditarRuta)
+        Me.Controls.Add(Me.TB_Arxiu)
+        Me.Controls.Add(Me.Label6)
         Me.Controls.Add(Me.Btn_EliminaRegistre)
         Me.Controls.Add(Me.Btn_ActualitzaRegistre)
         Me.Controls.Add(Me.TB_Import)
@@ -176,4 +220,8 @@ Partial Class EdicioResgistre
     Friend WithEvents Label2 As Label
     Friend WithEvents TP_DataRegistre As DateTimePicker
     Friend WithEvents Label1 As Label
+    Friend WithEvents Label6 As Label
+    Friend WithEvents TB_Arxiu As TextBox
+    Friend WithEvents Btn_EditarRuta As Button
+    Friend WithEvents Btn_BorrarRuta As Button
 End Class

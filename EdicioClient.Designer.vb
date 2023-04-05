@@ -99,7 +99,7 @@ Partial Class EdicioClient
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog
         Me.Name = "EdicioClient"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent
-        Me.Text = "Edicio Client"
+        Me.Text = "Edició Client"
         Me.ResumeLayout(False)
         Me.PerformLayout()
 

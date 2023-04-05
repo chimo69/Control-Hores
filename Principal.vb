@@ -1,4 +1,8 @@
 ﻿Imports System.Data.SQLite
+Imports System.Dynamic
+Imports System.Linq.Expressions
+Imports System.IO
+
 Public Class Principal
     Public taronja As Color = Color.FromArgb(255, 197, 128)
     Public vermell As Color = Color.FromArgb(255, 128, 128)
@@ -7,12 +11,11 @@ Public Class Principal
     Public groc As Color = Color.FromArgb(252, 255, 168)
     Public telematic As Color = Color.FromArgb(72, 101, 174)
     Public telematic_oscur As Color = Color.FromArgb(37, 46, 59)
+    Public idClientActual As Integer
 
     Private Sub Form1_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         DataEmpreses.DataSource = Conexio.CarregaClients()
         DataHistorial.DataSource = Conexio.CarregaHistorial
-
-
     End Sub
 
     Private Sub DataEmpreses_DataBindingComplete(sender As Object, e As DataGridViewBindingCompleteEventArgs) Handles DataEmpreses.DataBindingComplete
@@ -37,15 +40,11 @@ Public Class Principal
             TB_CercaEmpreses.Clear()
             DataEmpreses.DataSource = Conexio.CarregaClients(TB_CercaEmpreses.Text, TB_CercaId.Text)
         End If
-        'ResetejaTot()
-        'DataEmpreses.ClearSelection()
-        'Lbl_NomEmpresa.Text = ""
-        'PanelGestio.Visible = False
-        'PanelControlHoras.Visible = False
     End Sub
 
     Private Sub DataEmpreses_CellClick(sender As Object, e As DataGridViewCellEventArgs) Handles DataEmpreses.CellClick
         SeleccionaEmpresa(DataEmpreses.CurrentRow.Cells("Id").Value)
+        idClientActual = DataEmpreses.CurrentRow.Cells("Id").Value
     End Sub
 
     Private Sub DataHistorial_DataBindingComplete(sender As Object, e As DataGridViewBindingCompleteEventArgs) Handles DataHistorial.DataBindingComplete
@@ -103,12 +102,17 @@ Public Class Principal
 
     End Sub
     Private Sub ColorejaTransaccions()
+
         For Each row As DataGridViewRow In DataHistorial.Rows
             If row.Cells("IdTransaccio").Value = 2 Then
                 row.Cells("Transacció").Style.BackColor = vermell
             End If
             If row.Cells("IdTransaccio").Value = 1 Then
                 row.Cells("Transacció").Style.BackColor = verd
+            End If
+            row.Cells("Arxiu").Style.ForeColor = Color.Blue
+            If row.Cells("Arxiu").Value <> "" Then
+                row.Cells("Data transacció").Style.BackColor = Color.LightSkyBlue
             End If
         Next
     End Sub
@@ -156,7 +160,7 @@ Public Class Principal
     End Sub
 
     Private Sub Btn_DesarObservacions_Click(sender As Object, e As EventArgs) Handles Btn_DesarObservacions.Click
-        If ActualitzaObservacionsClient(DataEmpreses.CurrentRow.Cells("Id").Value, TB_ObservacionsCLient.Text) = True Then
+        If ActualitzaObservacionsClient(idClientActual, TB_ObservacionsCLient.Text) = True Then
             MsgBox("Observacions actualitzades",, "Actualització de dades")
             ActualitzaClients()
         Else
@@ -192,25 +196,50 @@ Public Class Principal
     Private Sub Btn_AfegirHores_Click(sender As Object, e As EventArgs) Handles Btn_AfegirHores.Click
         If TB_HoresAfegir.Text <> "" Then
             Dim dgv As DataGridView = DataHistorial
-            Dim idClient As Integer = DataEmpreses.CurrentRow.Cells("Id").Value
             Dim import As Double = CDbl(TB_Import.Text)
             Dim Comentaris As String = TB_Comentaris.Text
             Dim Hores As Double = CDbl(TB_HoresAfegir.Text)
             Dim PreuHora As Double = CDbl(TB_PreuHora.Text)
-            AfegirTransacció(idClient, 1, import, Comentaris, Hores, PreuHora)
-            DataHistorial.DataSource = CarregaHistorial(DataEmpreses.CurrentRow.Cells("Id").Value)
-            ActualitzaHistorial()
+            Dim rutaArxiu As String = ""
+
+            Dim result = MsgBox("Vols adjuntar un document?", vbYesNo, "Afegir transacció")
+            If result = vbYes Then
+                Dim openFileDialog As New OpenFileDialog
+                openFileDialog.Filter = "Arxius de text (*.pdf)|*.pdf|Todos los archivos (*.*)|*.*"
+                openFileDialog.FilterIndex = 1
+                openFileDialog.RestoreDirectory = True
+
+                If openFileDialog.ShowDialog() = DialogResult.OK Then
+                    rutaArxiu = openFileDialog.FileName
+                End If
+            End If
+            AfegirTransacció(idClientActual, 1, import, Comentaris, Hores, PreuHora, rutaArxiu)
+            DataHistorial.DataSource = CarregaHistorial(idClientActual)
+            DataEmpreses.DataSource = CarregaClients()
         End If
     End Sub
 
     Private Sub Btn_restarHores_Click(sender As Object, e As EventArgs) Handles Btn_restarHores.Click
         If TB_HoresRestar.Text <> "" Then
             Dim dgv As DataGridView = DataHistorial
-            Dim idClient As Integer = DataEmpreses.CurrentRow.Cells("Id").Value
             Dim Comentaris As String = TB_Comentaris.Text
             Dim Hores As Double = CDbl(TB_HoresRestar.Text) * -1
-            AfegirTransacció(idClient, 2, 0, Comentaris, Hores, 0)
-            ActualitzaHistorial()
+            Dim rutaArxiu As String = ""
+
+            Dim result = MsgBox("Vols adjuntar un document?", vbYesNo, "Afegir transacció")
+            If result = vbYes Then
+                Dim openFileDialog As New OpenFileDialog
+                openFileDialog.Filter = "Arxius de text (*.pdf)|*.pdf|Todos los archivos (*.*)|*.*"
+                openFileDialog.FilterIndex = 1
+                openFileDialog.RestoreDirectory = True
+
+                If openFileDialog.ShowDialog() = DialogResult.OK Then
+                    rutaArxiu = openFileDialog.FileName
+                End If
+            End If
+            AfegirTransacció(idClientActual, 2, 0, Comentaris, Hores, 0, rutaArxiu)
+            DataHistorial.DataSource = CarregaHistorial(idClientActual)
+            DataEmpreses.DataSource = CarregaClients()
         End If
     End Sub
 
@@ -223,8 +252,9 @@ Public Class Principal
             Dim Hores As Double = dgv.Rows(e.RowIndex).Cells("Hores").Value
             Dim PreuHora As Double = dgv.Rows(e.RowIndex).Cells("Preu/Hora").Value
             Dim Data As Date = dgv.Rows(e.RowIndex).Cells("Data Transacció").Value
-
-            Dim editaRegistre As New EdicioResgistre(idEmpresa, idHistorial, Data, comentaris, Hores, PreuHora)
+            Dim RutaArxiu As String = dgv.Rows(e.RowIndex).Cells("Arxiu").Value
+            Dim tipusTransaccio As Integer = dgv.Rows(e.RowIndex).Cells("IdTransaccio").Value
+            Dim editaRegistre As New EdicioResgistre(idEmpresa, idHistorial, Data, comentaris, Hores, PreuHora, RutaArxiu, tipusTransaccio)
             editaRegistre.ShowDialog()
 
         End If
@@ -312,10 +342,7 @@ Public Class Principal
         DataHistorial.DataSource = CarregaHistorial()
         DataEmpreses.DataSource = CarregaClients()
         DataEmpreses.ClearSelection()
-        PanelGestio.Visible = False
-        PanelControlHoras.Visible = False
-        Panel_AfegirHores.Visible = False
-        Panel_RestarHores.Visible = False
+        AmagaPanelGestio()
     End Sub
 
     Public Sub AmagaPanelGestio()
@@ -323,5 +350,27 @@ Public Class Principal
         PanelControlHoras.Visible = False
         Panel_AfegirHores.Visible = False
         Panel_RestarHores.Visible = False
+        idClientActual = 0
+    End Sub
+
+    Private Sub ImpedeixLletres(sender As Object, e As KeyPressEventArgs) Handles TB_HoresAfegir.KeyPress, TB_PreuHora.KeyPress, TB_HoresRestar.KeyPress, TB_CercaId.KeyPress
+        If Char.IsLetter(e.KeyChar) Then
+            e.Handled = True
+        End If
+    End Sub
+
+    Private Sub DataHistorial_CellContentClick(sender As Object, e As DataGridViewCellEventArgs) Handles DataHistorial.CellContentClick
+        If e.ColumnIndex = DataHistorial.Columns("Arxiu").Index Then
+            Dim ruta As String = DataHistorial.Rows(e.RowIndex).Cells(e.ColumnIndex).Value.ToString()
+            If Not String.IsNullOrEmpty(ruta) AndAlso File.Exists(ruta) Then
+                Process.Start("Explorer.exe", ruta)
+            Else
+                MsgBox("No s'ha trobat l'arxiu a la ruta indicada", vbInformation, "Obrir arxiu")
+            End If
+        End If
+    End Sub
+
+    Private Sub DataHistorial_CellFormatting(sender As Object, e As DataGridViewCellFormattingEventArgs) Handles DataHistorial.CellFormatting
+        Dim dgv As DataGridView = sender
     End Sub
 End Class

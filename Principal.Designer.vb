@@ -165,9 +165,8 @@ Partial Class Principal
         '
         'Label7
         '
-        Me.Label7.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.Label7.AutoSize = True
-        Me.Label7.Location = New System.Drawing.Point(974, 6)
+        Me.Label7.Location = New System.Drawing.Point(869, 6)
         Me.Label7.Name = "Label7"
         Me.Label7.Size = New System.Drawing.Size(154, 15)
         Me.Label7.TabIndex = 2
@@ -175,7 +174,8 @@ Partial Class Principal
         '
         'TB_ObservacionsCLient
         '
-        Me.TB_ObservacionsCLient.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.TB_ObservacionsCLient.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.TB_ObservacionsCLient.Location = New System.Drawing.Point(869, 22)
         Me.TB_ObservacionsCLient.Multiline = True
         Me.TB_ObservacionsCLient.Name = "TB_ObservacionsCLient"
@@ -454,7 +454,7 @@ Partial Class Principal
         Me.PanelGestio.Controls.Add(Me.Panel_AfegirRestarHores)
         Me.PanelGestio.Location = New System.Drawing.Point(454, 19)
         Me.PanelGestio.Name = "PanelGestio"
-        Me.PanelGestio.Size = New System.Drawing.Size(679, 100)
+        Me.PanelGestio.Size = New System.Drawing.Size(679, 96)
         Me.PanelGestio.TabIndex = 18
         Me.PanelGestio.Visible = False
         '
@@ -466,7 +466,7 @@ Partial Class Principal
         Me.Panel_RestarHores.Dock = System.Windows.Forms.DockStyle.Left
         Me.Panel_RestarHores.Location = New System.Drawing.Point(348, 0)
         Me.Panel_RestarHores.Name = "Panel_RestarHores"
-        Me.Panel_RestarHores.Size = New System.Drawing.Size(85, 100)
+        Me.Panel_RestarHores.Size = New System.Drawing.Size(85, 96)
         Me.Panel_RestarHores.TabIndex = 12
         Me.Panel_RestarHores.Visible = False
         '
@@ -511,7 +511,7 @@ Partial Class Principal
         Me.Panel_AfegirHores.Dock = System.Windows.Forms.DockStyle.Left
         Me.Panel_AfegirHores.Location = New System.Drawing.Point(108, 0)
         Me.Panel_AfegirHores.Name = "Panel_AfegirHores"
-        Me.Panel_AfegirHores.Size = New System.Drawing.Size(240, 100)
+        Me.Panel_AfegirHores.Size = New System.Drawing.Size(240, 96)
         Me.Panel_AfegirHores.TabIndex = 11
         Me.Panel_AfegirHores.Visible = False
         '
@@ -595,7 +595,7 @@ Partial Class Principal
         Me.Panel_ComentarisTransaccio.Location = New System.Drawing.Point(439, 0)
         Me.Panel_ComentarisTransaccio.Name = "Panel_ComentarisTransaccio"
         Me.Panel_ComentarisTransaccio.Padding = New System.Windows.Forms.Padding(10, 0, 0, 0)
-        Me.Panel_ComentarisTransaccio.Size = New System.Drawing.Size(240, 100)
+        Me.Panel_ComentarisTransaccio.Size = New System.Drawing.Size(240, 96)
         Me.Panel_ComentarisTransaccio.TabIndex = 13
         Me.Panel_ComentarisTransaccio.Visible = False
         '
@@ -607,7 +607,7 @@ Partial Class Principal
         Me.TB_Comentaris.Location = New System.Drawing.Point(13, 29)
         Me.TB_Comentaris.Multiline = True
         Me.TB_Comentaris.Name = "TB_Comentaris"
-        Me.TB_Comentaris.Size = New System.Drawing.Size(220, 57)
+        Me.TB_Comentaris.Size = New System.Drawing.Size(220, 59)
         Me.TB_Comentaris.TabIndex = 6
         '
         'Label6
@@ -627,7 +627,7 @@ Partial Class Principal
         Me.Panel_AfegirRestarHores.Dock = System.Windows.Forms.DockStyle.Left
         Me.Panel_AfegirRestarHores.Location = New System.Drawing.Point(0, 0)
         Me.Panel_AfegirRestarHores.Name = "Panel_AfegirRestarHores"
-        Me.Panel_AfegirRestarHores.Size = New System.Drawing.Size(108, 100)
+        Me.Panel_AfegirRestarHores.Size = New System.Drawing.Size(108, 96)
         Me.Panel_AfegirRestarHores.TabIndex = 10
         '
         'Btn_ObreRestarHores
@@ -684,7 +684,7 @@ Partial Class Principal
         Me.DataHistorial.ColumnHeadersHeight = 30
         Me.DataHistorial.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing
         Me.DataHistorial.EnableHeadersVisualStyles = False
-        Me.DataHistorial.Location = New System.Drawing.Point(15, 125)
+        Me.DataHistorial.Location = New System.Drawing.Point(15, 121)
         Me.DataHistorial.MultiSelect = False
         Me.DataHistorial.Name = "DataHistorial"
         Me.DataHistorial.ReadOnly = True
@@ -692,7 +692,7 @@ Partial Class Principal
         Me.DataHistorial.RowTemplate.Height = 25
         Me.DataHistorial.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
         Me.DataHistorial.ShowEditingIcon = False
-        Me.DataHistorial.Size = New System.Drawing.Size(1118, 430)
+        Me.DataHistorial.Size = New System.Drawing.Size(1118, 434)
         Me.DataHistorial.TabIndex = 16
         '
         'Principal

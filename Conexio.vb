@@ -1,4 +1,5 @@
 ﻿
+Imports System.Collections.ObjectModel
 Imports System.Data.SQLite
 Imports System.Net.Sockets
 
@@ -6,6 +7,13 @@ Module Conexio
     Public cadena As String = "Data Source=" & Application.StartupPath & "\Database\DBControlHores.db;Version=3;UseUTF8Encoding=True;"
     Public conexion As New SQLiteConnection(cadena)
 
+    Public Function CreaBaseDades()
+        conexion.Open()
+        Dim CMD As New SQLiteCommand(cadena)
+        Dim createDatabaseCommand As New SQLiteCommand("CREATE DATABASE IF NOT EXISTS mydatabase", conexion)
+        createDatabaseCommand.ExecuteNonQuery()
+        conexion.Close()
+    End Function
     Public Function CarregaClients()
         Dim DT As New DataTable
         Dim Query As String = "SELECT printf('%05d',Clients.IdExit) as IdExit,
@@ -55,10 +63,12 @@ Module Conexio
                                       Historial.Hores,
                                       Historial.PreuHora as 'Preu/Hora',
                                       Historial.Import,
+                                      Historial.Arxiu,
                                       Historial.Observacions
                                       FROM Historial
                                       INNER JOIN Transaccions on Transaccions.id = Historial.Transaccio
-					                  INNER JOIN Clients on Clients.id = Historial.Client"
+					                  INNER JOIN Clients on Clients.id = Historial.Client
+                                      ORDER BY Historial.Data DESC"
         Dim CMD As New SQLiteCommand(Query, conexion)
         Dim DA As New SQLiteDataAdapter(CMD)
         DA.Fill(DT)
@@ -76,11 +86,13 @@ Module Conexio
                                Historial.Hores,
                                Historial.PreuHora as 'Preu/hora',
                                Historial.Import,
+                               Historial.Arxiu,
                                Historial.Observacions
                                FROM Historial
                                INNER JOIN Transaccions on Transaccions.id = Historial.Transaccio
 					           INNER JOIN Clients on Clients.id = Historial.Client
-                               WHERE Historial.Client= @IdEmpresa"
+                               WHERE Historial.Client= @IdEmpresa
+                               ORDER BY Historial.Data DESC"
         Dim CMD As New SQLiteCommand(Query, conexion)
         CMD.Parameters.AddWithValue("@IdEmpresa", IdEmpresa)
         Dim DA As New SQLiteDataAdapter(CMD)
@@ -89,8 +101,8 @@ Module Conexio
         Return DT
     End Function
 
-    Public Function AfegirTransacció(IdClient As Integer, TipusTransaccio As Integer, Import As Double, Observacions As String, Hores As Double, PreuHora As Double) As Boolean
-        Dim Query As String = "INSERT INTO Historial (Client, Transaccio, Data, Hores, PreuHora, Import, Observacions) VALUES (@IdClient, @Transaccio, @Data, @Hores, @PreuHora, @Import, @Observacions)"
+    Public Function AfegirTransacció(IdClient As Integer, TipusTransaccio As Integer, Import As Double, Observacions As String, Hores As Double, PreuHora As Double, RutaArxiu As String) As Boolean
+        Dim Query As String = "INSERT INTO Historial (Client, Transaccio, Data, Hores, PreuHora, Import, Arxiu, Observacions) VALUES (@IdClient, @Transaccio, @Data, @Hores, @PreuHora, @Import, @RutaArxiu,@Observacions)"
         Dim CMD As New SQLiteCommand(Query, conexion)
 
         Try
@@ -104,6 +116,7 @@ Module Conexio
                 .Parameters.AddWithValue("@Hores", Hores)
                 .Parameters.AddWithValue("@Data", Date.Now)
                 .Parameters.AddWithValue("@PreuHora", PreuHora)
+                .Parameters.AddWithValue("@RutaArxiu", RutaArxiu)
             End With
 
             If conexion.State = ConnectionState.Open Then
@@ -154,8 +167,8 @@ Module Conexio
         End Try
         conexion.Close()
     End Function
-    Public Function ActualitzaRegistre(idRegistre As Integer, Data As Date, Hores As Double, PreuHora As Double, Import As Double, Observacions As String)
-        Dim Query As String = "UPDATE Historial SET Data=@Data, Hores=@Hores, PreuHora=@PreuHora, Import=@Import, Observacions=@Observacions WHERE ID=@IdRegistre"
+    Public Function ActualitzaRegistre(idRegistre As Integer, Data As Date, Hores As Double, PreuHora As Double, Import As Double, Observacions As String, RutaArxiu As String)
+        Dim Query As String = "UPDATE Historial SET Data=@Data, Hores=@Hores, PreuHora=@PreuHora, Import=@Import, Arxiu=@RutaArxiu,Observacions=@Observacions WHERE ID=@IdRegistre"
         Dim CMD As New SQLiteCommand(Query, conexion)
 
         Try
@@ -167,6 +180,7 @@ Module Conexio
                 .Parameters.AddWithValue("@Import", Import)
                 .Parameters.AddWithValue("@Observacions", Observacions)
                 .Parameters.AddWithValue("@PreuHora", PreuHora)
+                .Parameters.AddWithValue("@RutaArxiu", RutaArxiu)
             End With
 
             If conexion.State = ConnectionState.Open Then
