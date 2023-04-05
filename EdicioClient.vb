@@ -1,7 +1,7 @@
 ﻿Public Class EdicioClient
     Private id As Object
-    Private idExit As Object
-    Private nom As Object
+    Private idExit As String
+    Private nom As String
     Private Origen As Integer
     Public Sub New()
 

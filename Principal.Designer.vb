@@ -48,6 +48,8 @@ Partial Class Principal
         Me.TB_CercaEmpreses = New System.Windows.Forms.TextBox()
         Me.DataEmpreses = New System.Windows.Forms.DataGridView()
         Me.Panel2 = New System.Windows.Forms.Panel()
+        Me.ExportarCSV = New System.Windows.Forms.Button()
+        Me.Btn_exportExcel = New System.Windows.Forms.Button()
         Me.PanelControlHoras = New System.Windows.Forms.Panel()
         Me.TB_HoresGastades = New System.Windows.Forms.TextBox()
         Me.TB_HoresDegudes = New System.Windows.Forms.TextBox()
@@ -329,6 +331,8 @@ Partial Class Principal
         '
         'Panel2
         '
+        Me.Panel2.Controls.Add(Me.ExportarCSV)
+        Me.Panel2.Controls.Add(Me.Btn_exportExcel)
         Me.Panel2.Controls.Add(Me.PanelControlHoras)
         Me.Panel2.Controls.Add(Me.PanelGestio)
         Me.Panel2.Controls.Add(Me.Label2)
@@ -339,6 +343,26 @@ Partial Class Principal
         Me.Panel2.Padding = New System.Windows.Forms.Padding(5)
         Me.Panel2.Size = New System.Drawing.Size(1146, 567)
         Me.Panel2.TabIndex = 4
+        '
+        'ExportarCSV
+        '
+        Me.ExportarCSV.BackgroundImage = Global.Control_Hores.My.Resources.Resources.csv
+        Me.ExportarCSV.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom
+        Me.ExportarCSV.Location = New System.Drawing.Point(62, 2)
+        Me.ExportarCSV.Name = "ExportarCSV"
+        Me.ExportarCSV.Size = New System.Drawing.Size(40, 40)
+        Me.ExportarCSV.TabIndex = 21
+        Me.ExportarCSV.UseVisualStyleBackColor = True
+        '
+        'Btn_exportExcel
+        '
+        Me.Btn_exportExcel.BackgroundImage = Global.Control_Hores.My.Resources.Resources.excel1
+        Me.Btn_exportExcel.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom
+        Me.Btn_exportExcel.Location = New System.Drawing.Point(16, 2)
+        Me.Btn_exportExcel.Name = "Btn_exportExcel"
+        Me.Btn_exportExcel.Size = New System.Drawing.Size(40, 40)
+        Me.Btn_exportExcel.TabIndex = 20
+        Me.Btn_exportExcel.UseVisualStyleBackColor = True
         '
         'PanelControlHoras
         '
@@ -405,7 +429,7 @@ Partial Class Principal
         '
         Me.Label4.AutoSize = True
         Me.Label4.Font = New System.Drawing.Font("Bahnschrift Light SemiCondensed", 18.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point)
-        Me.Label4.Location = New System.Drawing.Point(7, 8)
+        Me.Label4.Location = New System.Drawing.Point(-2, 7)
         Me.Label4.Name = "Label4"
         Me.Label4.Size = New System.Drawing.Size(99, 29)
         Me.Label4.TabIndex = 7
@@ -426,7 +450,7 @@ Partial Class Principal
         '
         Me.Label5.AutoSize = True
         Me.Label5.Font = New System.Drawing.Font("Bahnschrift Light SemiCondensed", 18.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point)
-        Me.Label5.Location = New System.Drawing.Point(7, 37)
+        Me.Label5.Location = New System.Drawing.Point(-2, 35)
         Me.Label5.Name = "Label5"
         Me.Label5.Size = New System.Drawing.Size(137, 29)
         Me.Label5.TabIndex = 8
@@ -656,7 +680,7 @@ Partial Class Principal
         '
         Me.Label2.AutoSize = True
         Me.Label2.Font = New System.Drawing.Font("Bahnschrift Light SemiCondensed", 18.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point)
-        Me.Label2.Location = New System.Drawing.Point(13, 13)
+        Me.Label2.Location = New System.Drawing.Point(108, 6)
         Me.Label2.Name = "Label2"
         Me.Label2.Size = New System.Drawing.Size(166, 29)
         Me.Label2.TabIndex = 17
@@ -787,4 +811,6 @@ Partial Class Principal
     Friend WithEvents Btn_EliminarClient As Button
     Friend WithEvents Btn_afegirClient As Button
     Friend WithEvents BT_HistorialComplet As Button
+    Friend WithEvents Btn_exportExcel As Button
+    Friend WithEvents ExportarCSV As Button
 End Class

@@ -4,16 +4,44 @@ Imports System.Data.SQLite
 Imports System.Net.Sockets
 
 Module Conexio
-    Public cadena As String = "Data Source=" & Application.StartupPath & "\Database\DBControlHores.db;Version=3;UseUTF8Encoding=True;"
+    Public cadena As String = "Data Source=" & Application.StartupPath & "\DBControlHores.db;Version=3;UseUTF8Encoding=True;"
     Public conexion As New SQLiteConnection(cadena)
 
-    Public Function CreaBaseDades()
-        conexion.Open()
-        Dim CMD As New SQLiteCommand(cadena)
-        Dim createDatabaseCommand As New SQLiteCommand("CREATE DATABASE IF NOT EXISTS mydatabase", conexion)
-        createDatabaseCommand.ExecuteNonQuery()
+    Public Sub CreaBaseDades()
+        Try
+            conexion.Open()
+            Dim CMD As New SQLiteCommand(cadena, conexion)
+
+            CMD.CommandText = "CREATE TABLE IF NOT EXISTS Clients (
+                                 Id INTEGER PRIMARY KEY AUTOINCREMENT,
+                                 Nom TEXT NOT NULL,
+                                 Observacions TEXT,
+                                 IdExit TEXT NOT NULL UNIQUE);
+                           CREATE TABLE IF NOT EXISTS Historial (
+                                 Id INTEGER PRIMARY KEY AUTOINCREMENT,
+                                 Client INTEGER NOT NULL,
+                                 Transaccio INTEGER NOT NULL,
+                                 Data TEXT NOT NULL DEFAULT '',
+                                 Hores REAL NOT NULL DEFAULT 0,
+                                 PreuHora REAL NOT NULL DEFAULT 0,
+                                 Import REAL NOT NULL DEFAULT 0,
+                                 Arxiu TEXT,
+                                 Observacions TEXT,
+                                 FOREIGN KEY(Client) REFERENCES Clients(Id) ON DELETE CASCADE);
+                           CREATE TABLE IF NOT EXISTS Transaccions (
+                                 Id INTEGER PRIMARY KEY AUTOINCREMENT,
+                                 Nom TEXT);"
+
+            CMD.ExecuteNonQuery()
+        Catch ex As Exception
+            MsgBox("Error obrint o creant la base de dades", vbCritical, "Error fatal")
+            Application.Exit()
+        End Try
         conexion.Close()
-    End Function
+
+
+    End Sub
+
     Public Function CarregaClients()
         Dim DT As New DataTable
         Dim Query As String = "SELECT printf('%05d',Clients.IdExit) as IdExit,
@@ -23,7 +51,9 @@ Module Conexio
                                       SUM(Historial.hores) as Hores
                                FROM Clients
                                LEFT JOIN Historial ON Clients.ID = Historial.Client
-                               GROUP BY Clients.ID"
+                               GROUP BY Clients.ID;
+
+"
         Dim CMD As New SQLiteCommand(Query, conexion)
         Dim DA As New SQLiteDataAdapter(CMD)
         DA.Fill(DT)

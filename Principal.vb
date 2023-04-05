@@ -2,6 +2,8 @@
 Imports System.Dynamic
 Imports System.Linq.Expressions
 Imports System.IO
+Imports OfficeOpenXml
+Imports OfficeOpenXml.Style
 
 Public Class Principal
     Public taronja As Color = Color.FromArgb(255, 197, 128)
@@ -14,6 +16,7 @@ Public Class Principal
     Public idClientActual As Integer
 
     Private Sub Form1_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        CreaBaseDades()
         DataEmpreses.DataSource = Conexio.CarregaClients()
         DataHistorial.DataSource = Conexio.CarregaHistorial
     End Sub
@@ -372,5 +375,120 @@ Public Class Principal
 
     Private Sub DataHistorial_CellFormatting(sender As Object, e As DataGridViewCellFormattingEventArgs) Handles DataHistorial.CellFormatting
         Dim dgv As DataGridView = sender
+
     End Sub
+
+    Private Sub Btn_exportExcel_Click(sender As Object, e As EventArgs) Handles Btn_exportExcel.Click
+        If Lbl_NomEmpresa.Text = "" Then
+            ExportarDadesExcel(DataHistorial, "Historial Complet Pack d'hores")
+        Else
+            ExportarDadesExcel(DataHistorial, "Historial Pack d'hores ( " & Lbl_NomEmpresa.Text & " )")
+        End If
+
+    End Sub
+
+
+    Public Sub ExportarDadesExcel(ByVal dataGridView As DataGridView, ByVal textEncabezado As String)
+
+        Try
+            ExcelPackage.LicenseContext = LicenseContext.NonCommercial
+            Dim arxiuExcel As New ExcelPackage()
+
+            Dim hoja As ExcelWorksheet = arxiuExcel.Workbook.Worksheets.Add("Pack Hores")
+
+            ' Personalizar el encabezado
+            Dim encabezado As ExcelRange = hoja.Cells("A1:" & ConvertToLetter(dataGridView.Columns.Count) & "1")
+            encabezado.Merge = True
+            encabezado.Value = textEncabezado
+            encabezado.Style.Font.Bold = True
+            encabezado.Style.Font.Size = 14
+            encabezado.Style.HorizontalAlignment = ExcelHorizontalAlignment.Center
+
+
+            For i As Integer = 0 To dataGridView.Columns.Count - 1
+                hoja.Cells(2, i + 1).Value = dataGridView.Columns(i).HeaderText
+                hoja.Cells(1, i + 1).Style.Fill.PatternType = OfficeOpenXml.Style.ExcelFillStyle.Solid
+                hoja.Cells(1, i + 1).Style.Fill.BackgroundColor.SetColor(telematic)
+                hoja.Cells(2, i + 1).Style.Fill.PatternType = OfficeOpenXml.Style.ExcelFillStyle.Solid
+                hoja.Cells(2, i + 1).Style.Fill.BackgroundColor.SetColor(Color.LightGray)
+            Next
+
+            For i As Integer = 0 To dataGridView.Rows.Count - 1
+                For j As Integer = 0 To dataGridView.Columns.Count - 1
+                    hoja.Cells(i + 3, j + 1).Value = dataGridView.Rows(i).Cells(j).Value
+                Next
+            Next
+
+            hoja.Cells.AutoFitColumns()
+
+            Dim saveDialog As New SaveFileDialog
+            saveDialog.Filter = "Arxius de Excel (*.xlsx)|*.xlsx"
+            saveDialog.FilterIndex = 1
+            saveDialog.RestoreDirectory = True
+
+            If saveDialog.ShowDialog = DialogResult.OK Then
+                arxiuExcel.SaveAs(saveDialog.FileName)
+                arxiuExcel.Dispose()
+            End If
+
+            MsgBox("Arxiu guardat amb éxit",, "Exportar arxiu Excel")
+        Catch ex As Exception
+            MsgBox("No s'ha pogut exportar l'arxiu",, "Exportar arxiu Excel")
+        End Try
+
+    End Sub
+
+    ' Función auxiliar para convertir un número de columna a una letra de columna en Excel
+    Private Function ConvertToLetter(ByVal iCol As Integer) As String
+        If iCol <= 26 Then
+            Return Chr(iCol + 64)
+        Else
+            Dim iMod As Integer = iCol Mod 26
+            Dim iDiv As Integer = iCol \ 26
+            If iMod = 0 Then
+                iDiv -= 1
+                iMod = 26
+            End If
+            Return ConvertToLetter(iDiv) & ConvertToLetter(iMod)
+        End If
+    End Function
+
+    Private Sub ExportarCSV_Click(sender As Object, e As EventArgs) Handles ExportarCSV.Click
+        ExportarDadesCSV(DataHistorial)
+    End Sub
+    Public Sub ExportarDadesCSV(ByVal dataGridView As DataGridView)
+
+        Try
+            Dim csv As String = ""
+            ' Encabezados de las columnas
+            For Each column As DataGridViewColumn In dataGridView.Columns
+                csv += column.HeaderText & ","
+            Next
+            csv = csv.Substring(0, csv.Length - 1) & Environment.NewLine
+
+            ' Datos
+            For Each row As DataGridViewRow In dataGridView.Rows
+                For Each cell As DataGridViewCell In row.Cells
+                    csv += cell.FormattedValue.ToString().Replace(",", ";") & ","
+                Next
+                csv = csv.Substring(0, csv.Length - 1) & Environment.NewLine
+            Next
+
+            ' Guardar el archivo
+            Dim saveDialog As New SaveFileDialog
+            saveDialog.Filter = "Arxius CSV (*.csv)|*.csv"
+            saveDialog.FilterIndex = 1
+            saveDialog.RestoreDirectory = True
+
+            If saveDialog.ShowDialog = DialogResult.OK Then
+                File.WriteAllText(saveDialog.FileName, csv)
+            End If
+
+            MsgBox("Arxiu guardat amb éxit", MsgBoxStyle.Information, "Exportar arxiu CSV")
+        Catch ex As Exception
+            MsgBox("No s'ha pogut exportar l'arxiu", MsgBoxStyle.Exclamation, "Exportar arxiu CSV")
+        End Try
+
+    End Sub
+
 End Class
