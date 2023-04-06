@@ -5,8 +5,6 @@ VisualStudioVersion = 17.4.33403.182
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{778DAE3C-4631-46EA-AA77-85C1314464D9}") = "Control Hores", "Control Hores.vbproj", "{4792E1AF-57B8-4D2B-8D68-223E7757C202}"
 EndProject
-Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "Pack Hores Setup", "..\Pack Hores Setup\Pack Hores Setup.vdproj", "{BEAB0E78-999D-4049-8FC9-1BAEEFA5DFDC}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -17,8 +15,6 @@ Global
 		{4792E1AF-57B8-4D2B-8D68-223E7757C202}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4792E1AF-57B8-4D2B-8D68-223E7757C202}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4792E1AF-57B8-4D2B-8D68-223E7757C202}.Release|Any CPU.Build.0 = Release|Any CPU
-		{BEAB0E78-999D-4049-8FC9-1BAEEFA5DFDC}.Debug|Any CPU.ActiveCfg = Debug
-		{BEAB0E78-999D-4049-8FC9-1BAEEFA5DFDC}.Release|Any CPU.ActiveCfg = Release
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
