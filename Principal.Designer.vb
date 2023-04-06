@@ -143,7 +143,7 @@ Partial Class Principal
         Me.Panel1.Controls.Add(Me.PictureBox2)
         Me.Panel1.Location = New System.Drawing.Point(11, 10)
         Me.Panel1.Name = "Panel1"
-        Me.Panel1.Size = New System.Drawing.Size(1483, 69)
+        Me.Panel1.Size = New System.Drawing.Size(1844, 69)
         Me.Panel1.TabIndex = 2
         '
         'Lbl_IdExit
@@ -158,7 +158,7 @@ Partial Class Principal
         'Btn_DesarObservacions
         '
         Me.Btn_DesarObservacions.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.Btn_DesarObservacions.Location = New System.Drawing.Point(1419, 22)
+        Me.Btn_DesarObservacions.Location = New System.Drawing.Point(2141, 22)
         Me.Btn_DesarObservacions.Name = "Btn_DesarObservacions"
         Me.Btn_DesarObservacions.Size = New System.Drawing.Size(56, 37)
         Me.Btn_DesarObservacions.TabIndex = 3
@@ -182,7 +182,7 @@ Partial Class Principal
         Me.TB_ObservacionsCLient.Multiline = True
         Me.TB_ObservacionsCLient.Name = "TB_ObservacionsCLient"
         Me.TB_ObservacionsCLient.PlaceholderText = "Introdueix observacions"
-        Me.TB_ObservacionsCLient.Size = New System.Drawing.Size(544, 37)
+        Me.TB_ObservacionsCLient.Size = New System.Drawing.Size(1266, 37)
         Me.TB_ObservacionsCLient.TabIndex = 1
         '
         'Lbl_NomEmpresa
@@ -218,12 +218,12 @@ Partial Class Principal
         Me.PanelEmpresas.Dock = System.Windows.Forms.DockStyle.Left
         Me.PanelEmpresas.Location = New System.Drawing.Point(0, 88)
         Me.PanelEmpresas.Name = "PanelEmpresas"
-        Me.PanelEmpresas.Size = New System.Drawing.Size(361, 567)
+        Me.PanelEmpresas.Size = New System.Drawing.Size(361, 652)
         Me.PanelEmpresas.TabIndex = 3
         '
         'BT_HistorialComplet
         '
-        Me.BT_HistorialComplet.Location = New System.Drawing.Point(240, 6)
+        Me.BT_HistorialComplet.Location = New System.Drawing.Point(240, 41)
         Me.BT_HistorialComplet.Name = "BT_HistorialComplet"
         Me.BT_HistorialComplet.Size = New System.Drawing.Size(110, 33)
         Me.BT_HistorialComplet.TabIndex = 8
@@ -234,7 +234,7 @@ Partial Class Principal
         '
         Me.Btn_EditarClient.BackgroundImage = Global.Control_Hores.My.Resources.Resources.editar
         Me.Btn_EditarClient.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom
-        Me.Btn_EditarClient.Location = New System.Drawing.Point(92, 6)
+        Me.Btn_EditarClient.Location = New System.Drawing.Point(92, 41)
         Me.Btn_EditarClient.Name = "Btn_EditarClient"
         Me.Btn_EditarClient.Size = New System.Drawing.Size(33, 33)
         Me.Btn_EditarClient.TabIndex = 7
@@ -243,7 +243,7 @@ Partial Class Principal
         'Btn_EliminarClient
         '
         Me.Btn_EliminarClient.Image = Global.Control_Hores.My.Resources.Resources.menos
-        Me.Btn_EliminarClient.Location = New System.Drawing.Point(53, 6)
+        Me.Btn_EliminarClient.Location = New System.Drawing.Point(53, 41)
         Me.Btn_EliminarClient.Name = "Btn_EliminarClient"
         Me.Btn_EliminarClient.Size = New System.Drawing.Size(33, 33)
         Me.Btn_EliminarClient.TabIndex = 6
@@ -252,7 +252,7 @@ Partial Class Principal
         'Btn_afegirClient
         '
         Me.Btn_afegirClient.Image = Global.Control_Hores.My.Resources.Resources.mas
-        Me.Btn_afegirClient.Location = New System.Drawing.Point(14, 6)
+        Me.Btn_afegirClient.Location = New System.Drawing.Point(14, 41)
         Me.Btn_afegirClient.Name = "Btn_afegirClient"
         Me.Btn_afegirClient.Size = New System.Drawing.Size(33, 33)
         Me.Btn_afegirClient.TabIndex = 5
@@ -262,7 +262,7 @@ Partial Class Principal
         '
         Me.PB_EliminaFiltreId.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.PB_EliminaFiltreId.Image = Global.Control_Hores.My.Resources.Resources.icono_eliminar
-        Me.PB_EliminaFiltreId.Location = New System.Drawing.Point(325, 48)
+        Me.PB_EliminaFiltreId.Location = New System.Drawing.Point(325, 83)
         Me.PB_EliminaFiltreId.Name = "PB_EliminaFiltreId"
         Me.PB_EliminaFiltreId.Size = New System.Drawing.Size(25, 23)
         Me.PB_EliminaFiltreId.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom
@@ -271,7 +271,7 @@ Partial Class Principal
         '
         'TB_CercaId
         '
-        Me.TB_CercaId.Location = New System.Drawing.Point(201, 48)
+        Me.TB_CercaId.Location = New System.Drawing.Point(201, 83)
         Me.TB_CercaId.Name = "TB_CercaId"
         Me.TB_CercaId.PlaceholderText = "Cerca per ID"
         Me.TB_CercaId.Size = New System.Drawing.Size(125, 23)
@@ -281,7 +281,7 @@ Partial Class Principal
         '
         Me.PB_EliminaFiltre.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.PB_EliminaFiltre.Image = Global.Control_Hores.My.Resources.Resources.icono_eliminar
-        Me.PB_EliminaFiltre.Location = New System.Drawing.Point(156, 47)
+        Me.PB_EliminaFiltre.Location = New System.Drawing.Point(156, 82)
         Me.PB_EliminaFiltre.Name = "PB_EliminaFiltre"
         Me.PB_EliminaFiltre.Size = New System.Drawing.Size(25, 23)
         Me.PB_EliminaFiltre.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom
@@ -290,7 +290,7 @@ Partial Class Principal
         '
         'TB_CercaEmpreses
         '
-        Me.TB_CercaEmpreses.Location = New System.Drawing.Point(14, 47)
+        Me.TB_CercaEmpreses.Location = New System.Drawing.Point(14, 82)
         Me.TB_CercaEmpreses.Name = "TB_CercaEmpreses"
         Me.TB_CercaEmpreses.PlaceholderText = "Cerca per empresa"
         Me.TB_CercaEmpreses.Size = New System.Drawing.Size(143, 23)
@@ -318,7 +318,7 @@ Partial Class Principal
         Me.DataEmpreses.ColumnHeadersHeight = 30
         Me.DataEmpreses.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing
         Me.DataEmpreses.EnableHeadersVisualStyles = False
-        Me.DataEmpreses.Location = New System.Drawing.Point(14, 78)
+        Me.DataEmpreses.Location = New System.Drawing.Point(14, 121)
         Me.DataEmpreses.MultiSelect = False
         Me.DataEmpreses.Name = "DataEmpreses"
         Me.DataEmpreses.ReadOnly = True
@@ -326,7 +326,7 @@ Partial Class Principal
         Me.DataEmpreses.RowTemplate.Height = 25
         Me.DataEmpreses.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
         Me.DataEmpreses.ShowEditingIcon = False
-        Me.DataEmpreses.Size = New System.Drawing.Size(336, 477)
+        Me.DataEmpreses.Size = New System.Drawing.Size(336, 519)
         Me.DataEmpreses.TabIndex = 0
         '
         'Panel2
@@ -341,7 +341,7 @@ Partial Class Principal
         Me.Panel2.Location = New System.Drawing.Point(361, 88)
         Me.Panel2.Name = "Panel2"
         Me.Panel2.Padding = New System.Windows.Forms.Padding(5)
-        Me.Panel2.Size = New System.Drawing.Size(1146, 567)
+        Me.Panel2.Size = New System.Drawing.Size(1146, 652)
         Me.Panel2.TabIndex = 4
         '
         'ExportarCSV
@@ -478,7 +478,7 @@ Partial Class Principal
         Me.PanelGestio.Controls.Add(Me.Panel_AfegirRestarHores)
         Me.PanelGestio.Location = New System.Drawing.Point(454, 19)
         Me.PanelGestio.Name = "PanelGestio"
-        Me.PanelGestio.Size = New System.Drawing.Size(679, 96)
+        Me.PanelGestio.Size = New System.Drawing.Size(680, 96)
         Me.PanelGestio.TabIndex = 18
         Me.PanelGestio.Visible = False
         '
@@ -488,7 +488,7 @@ Partial Class Principal
         Me.Panel_RestarHores.Controls.Add(Me.Label11)
         Me.Panel_RestarHores.Controls.Add(Me.TB_HoresRestar)
         Me.Panel_RestarHores.Dock = System.Windows.Forms.DockStyle.Left
-        Me.Panel_RestarHores.Location = New System.Drawing.Point(348, 0)
+        Me.Panel_RestarHores.Location = New System.Drawing.Point(345, 0)
         Me.Panel_RestarHores.Name = "Panel_RestarHores"
         Me.Panel_RestarHores.Size = New System.Drawing.Size(85, 96)
         Me.Panel_RestarHores.TabIndex = 12
@@ -535,7 +535,7 @@ Partial Class Principal
         Me.Panel_AfegirHores.Dock = System.Windows.Forms.DockStyle.Left
         Me.Panel_AfegirHores.Location = New System.Drawing.Point(108, 0)
         Me.Panel_AfegirHores.Name = "Panel_AfegirHores"
-        Me.Panel_AfegirHores.Size = New System.Drawing.Size(240, 96)
+        Me.Panel_AfegirHores.Size = New System.Drawing.Size(237, 96)
         Me.Panel_AfegirHores.TabIndex = 11
         Me.Panel_AfegirHores.Visible = False
         '
@@ -616,10 +616,10 @@ Partial Class Principal
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.Panel_ComentarisTransaccio.Controls.Add(Me.TB_Comentaris)
         Me.Panel_ComentarisTransaccio.Controls.Add(Me.Label6)
-        Me.Panel_ComentarisTransaccio.Location = New System.Drawing.Point(439, 0)
+        Me.Panel_ComentarisTransaccio.Location = New System.Drawing.Point(436, 0)
         Me.Panel_ComentarisTransaccio.Name = "Panel_ComentarisTransaccio"
         Me.Panel_ComentarisTransaccio.Padding = New System.Windows.Forms.Padding(10, 0, 0, 0)
-        Me.Panel_ComentarisTransaccio.Size = New System.Drawing.Size(240, 96)
+        Me.Panel_ComentarisTransaccio.Size = New System.Drawing.Size(244, 96)
         Me.Panel_ComentarisTransaccio.TabIndex = 13
         Me.Panel_ComentarisTransaccio.Visible = False
         '
@@ -631,7 +631,7 @@ Partial Class Principal
         Me.TB_Comentaris.Location = New System.Drawing.Point(13, 29)
         Me.TB_Comentaris.Multiline = True
         Me.TB_Comentaris.Name = "TB_Comentaris"
-        Me.TB_Comentaris.Size = New System.Drawing.Size(220, 59)
+        Me.TB_Comentaris.Size = New System.Drawing.Size(217, 59)
         Me.TB_Comentaris.TabIndex = 6
         '
         'Label6
@@ -716,14 +716,14 @@ Partial Class Principal
         Me.DataHistorial.RowTemplate.Height = 25
         Me.DataHistorial.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
         Me.DataHistorial.ShowEditingIcon = False
-        Me.DataHistorial.Size = New System.Drawing.Size(1118, 434)
+        Me.DataHistorial.Size = New System.Drawing.Size(1119, 519)
         Me.DataHistorial.TabIndex = 16
         '
         'Principal
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(7.0!, 15.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(1507, 655)
+        Me.ClientSize = New System.Drawing.Size(1507, 740)
         Me.Controls.Add(Me.Panel2)
         Me.Controls.Add(Me.PanelEmpresas)
         Me.Controls.Add(Me.PanelSuperior)

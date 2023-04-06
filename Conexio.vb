@@ -5,7 +5,35 @@ Imports System.Net.Sockets
 
 Module Conexio
     Public cadena As String = "Data Source=" & Application.StartupPath & "\DBControlHores.db;Version=3;UseUTF8Encoding=True;"
+    Public Login As String = "Data Source=" & Application.StartupPath & "\DBUsuaris.db;Version=3;UseUTF8Encoding=True;"
     Public conexion As New SQLiteConnection(cadena)
+    Public conexioLogin As New SQLiteConnection(Login)
+
+    Public Function comprobaUsuari(usuari As String, password As String)
+        Dim resultat As Object
+        Try
+            conexioLogin.Open()
+            Dim consulta As String = "SELECT * FROM Usuaris WHERE Usuari=@usuari AND Password=@password"
+
+            Dim CMD As New SQLiteCommand(consulta, conexioLogin)
+            CMD.Parameters.AddWithValue("@usuari", usuari)
+            CMD.Parameters.AddWithValue("@password", password)
+            If conexioLogin.State = ConnectionState.Open Then
+                resultat = CMD.ExecuteScalar
+            End If
+
+            If resultat IsNot Nothing Then
+                Return True
+            Else
+                Return False
+            End If
+
+            conexioLogin.Close()
+        Catch ex As Exception
+        End Try
+
+    End Function
+
 
     Public Sub CreaBaseDades()
         Try
