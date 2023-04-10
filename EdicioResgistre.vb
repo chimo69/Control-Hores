@@ -7,6 +7,7 @@
     Private idEmpresa As Integer
     Private rutaArxiu As String
     Private tipusTransaccio As Integer
+    Public Property Resposta As Boolean
 
     Public Sub New(idEmpresa As Integer, idTransaccio As Integer, dataRegistre As Date, comentaris As String, hores As Double, preuHora As Double, rutaArxiu As String, tipusTransaccio As Integer)
         InitializeComponent()
@@ -45,10 +46,11 @@
         If result = vbYes Then
             If EliminaRegistre(idHistorial) = True Then
                 MsgBox("S'ha eliminat amb éxit el registre",, "Eliminar registre")
-                Principal.SeleccionaEmpresa(idEmpresa)
+                Resposta = True
                 Me.Close()
             Else
                 MsgBox("No s'ha pogut eliminar el registre",, "Eliminar registre")
+                Resposta = False
                 Me.Close()
             End If
         Else
@@ -67,10 +69,11 @@
 
         If ActualitzaRegistre(idHistorial, Data, Hores, PreuHora, Import, Observacions, rutaArxiu) = True Then
             MsgBox("S'ha actualitzat amb éxit el registre",, "Actualitzar registre")
-            Principal.SeleccionaEmpresa(idEmpresa)
+            Resposta = True
             Me.Close()
         Else
             MsgBox("No s'ha pogut eliminar el registre",, "Actualitzar registre")
+            Resposta = False
             Me.Close()
         End If
     End Sub

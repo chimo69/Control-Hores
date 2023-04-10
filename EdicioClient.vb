@@ -3,6 +3,7 @@
     Private idExit As String
     Private nom As String
     Private Origen As Integer
+
     Public Sub New()
 
         ' Esta llamada es exigida por el diseñador.
@@ -27,20 +28,24 @@
     Private Sub Btn_Desar_Click(sender As Object, e As EventArgs) Handles Btn_Desar.Click
         If Origen = 0 Then
             If AfegirClient(TB_RaoSocial.Text, TB_IdExit.Text) = True Then
-                Me.Close()
+                guardaResgistreUsuari(usuariActual, "CLIENT (" & nom & ") CREAT")
                 MsgBox("Client afegit amb éxit",, "Edició client")
-                Principal.MostraTotComplet()
+                Me.DialogResult = DialogResult.OK
+                Me.Close()
             Else
                 MsgBox("No s'ha pogut afegir al client ",, "Edició client")
+                Me.DialogResult = DialogResult.No
             End If
 
         Else
             If ActualitzarClient(id, TB_RaoSocial.Text, TB_IdExit.Text) = True Then
+                guardaResgistreUsuari(usuariActual, "CLIENT (" & nom & ") MODIFICAT")
                 Me.Close()
                 MsgBox("Client modificat amb éxit",, "Edició client")
-                Principal.MostraTotComplet()
+                Me.DialogResult = DialogResult.OK
             Else
                 MsgBox("No s'ha pogut modificar el client ",, "Edició client")
+                Me.DialogResult = DialogResult.No
             End If
 
         End If

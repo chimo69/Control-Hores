@@ -13,12 +13,21 @@ Public Class Principal
     Public groc As Color = Color.FromArgb(252, 255, 168)
     Public telematic As Color = Color.FromArgb(72, 101, 174)
     Public telematic_oscur As Color = Color.FromArgb(37, 46, 59)
-    Public idClientActual As Integer
 
+    Public Sub New()
+
+        ' Esta llamada es exigida por el diseñador.
+        InitializeComponent()
+
+        ' Agregue cualquier inicialización después de la llamada a InitializeComponent().
+
+
+    End Sub
     Private Sub Form1_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        CreaBaseDades()
-        DataEmpreses.DataSource = Conexio.CarregaClients()
-        DataHistorial.DataSource = Conexio.CarregaHistorial
+
+        DataEmpreses.DataSource = CarregaClients()
+        DataHistorial.DataSource = CarregaHistorial()
+
     End Sub
 
     Private Sub DataEmpreses_DataBindingComplete(sender As Object, e As DataGridViewBindingCompleteEventArgs) Handles DataEmpreses.DataBindingComplete
@@ -46,8 +55,10 @@ Public Class Principal
     End Sub
 
     Private Sub DataEmpreses_CellClick(sender As Object, e As DataGridViewCellEventArgs) Handles DataEmpreses.CellClick
-        SeleccionaEmpresa(DataEmpreses.CurrentRow.Cells("Id").Value)
         idClientActual = DataEmpreses.CurrentRow.Cells("Id").Value
+        TB_ObservacionsCLient.Enabled = True
+        Btn_DesarObservacions.Enabled = True
+        SeleccionaEmpresa()
     End Sub
 
     Private Sub DataHistorial_DataBindingComplete(sender As Object, e As DataGridViewBindingCompleteEventArgs) Handles DataHistorial.DataBindingComplete
@@ -57,6 +68,7 @@ Public Class Principal
             .Columns("Client").Visible = False
             .Columns("Data transacció").DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter
             .Columns("Data transacció").Width = 100
+            .Columns("Usuari").Width = 75
             .Columns("Hores").Width = 50
             .Columns("hores").DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter
             .Columns("Preu/Hora").Width = 70
@@ -68,10 +80,9 @@ Public Class Principal
             .Columns("Import").DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight
             .Columns("Import").Width = 70
             .Columns("Id").Width = 50
-            '.AutoResizeColumns()
             .ClearSelection()
-            ColorejaTransaccions()
         End With
+        ColorejaTransaccions()
     End Sub
 
     Private Sub CalculaHores()
@@ -142,9 +153,21 @@ Public Class Principal
     End Sub
 
     Public Sub ActualitzaHistorial()
-        Dim IdEmpresaSeleccionada = DataEmpreses.CurrentRow.Cells("Id").Value
-        DataHistorial.DataSource = CarregaHistorial(IdEmpresaSeleccionada)
-        DataEmpreses.DataSource = CarregaClients()
+        If idClientActual <> 0 Then
+            DataHistorial.DataSource = CarregaHistorial(idClientActual)
+        Else
+            DataHistorial.DataSource = CarregaHistorial()
+        End If
+
+        ActualitzaClients()
+
+        If idClientActual <> 0 Then
+            For Each row As DataGridViewRow In DataEmpreses.Rows
+                If row.Cells("Id").Value = idClientActual Then
+                    row.Selected = True
+                End If
+            Next
+        End If
 
         CalculaHores()
         TB_HoresAfegir.Clear()
@@ -152,6 +175,7 @@ Public Class Principal
         TB_HoresRestar.Clear()
         TB_PreuHora.Clear()
         TB_HoresDisponibles.Clear()
+
         Panel_AfegirHores.Visible = False
         Panel_RestarHores.Visible = False
         Panel_ComentarisTransaccio.Visible = False
@@ -217,8 +241,17 @@ Public Class Principal
                 End If
             End If
             AfegirTransacció(idClientActual, 1, import, Comentaris, Hores, PreuHora, rutaArxiu)
-            DataHistorial.DataSource = CarregaHistorial(idClientActual)
-            DataEmpreses.DataSource = CarregaClients()
+            guardaResgistreUsuari(usuariActual, "AFEGEIX " & Hores & " HORES A (" & Lbl_NomEmpresa.Text & ")")
+
+            ActualitzaClients()
+            CalculaHores()
+            TB_HoresAfegir.Clear()
+            TB_Comentaris.Clear()
+            TB_HoresRestar.Clear()
+            TB_PreuHora.Clear()
+            Panel_AfegirHores.Visible = False
+            Panel_RestarHores.Visible = False
+            Panel_ComentarisTransaccio.Visible = False
         End If
     End Sub
 
@@ -241,8 +274,17 @@ Public Class Principal
                 End If
             End If
             AfegirTransacció(idClientActual, 2, 0, Comentaris, Hores, 0, rutaArxiu)
-            DataHistorial.DataSource = CarregaHistorial(idClientActual)
-            DataEmpreses.DataSource = CarregaClients()
+            guardaResgistreUsuari(usuariActual, "RESTA " & Hores & " HORES A (" & Lbl_NomEmpresa.Text & ")")
+
+            ActualitzaClients()
+            CalculaHores()
+            TB_HoresAfegir.Clear()
+            TB_Comentaris.Clear()
+            TB_HoresRestar.Clear()
+            TB_PreuHora.Clear()
+            Panel_AfegirHores.Visible = False
+            Panel_RestarHores.Visible = False
+            Panel_ComentarisTransaccio.Visible = False
         End If
     End Sub
 
@@ -258,31 +300,42 @@ Public Class Principal
             Dim RutaArxiu As String = dgv.Rows(e.RowIndex).Cells("Arxiu").Value
             Dim tipusTransaccio As Integer = dgv.Rows(e.RowIndex).Cells("IdTransaccio").Value
             Dim editaRegistre As New EdicioResgistre(idEmpresa, idHistorial, Data, comentaris, Hores, PreuHora, RutaArxiu, tipusTransaccio)
-            editaRegistre.ShowDialog()
-
+            Dim resposta As Boolean = editaRegistre.ShowDialog()
+            If resposta = True Then
+                ActualitzaClients()
+                ActualitzaHistorial()
+            End If
         End If
     End Sub
-    Public Sub SeleccionaEmpresa(IdEmpresa As Integer)
+    Public Sub SeleccionaEmpresa()
+        Dim rowSelected As DataGridViewRow = Nothing
+
         For Each row As DataGridViewRow In DataEmpreses.Rows
-            If row.Cells("Id").Value = IdEmpresa Then row.Selected = True
+            If row.Cells("Id").Value = idClientActual Then
+                rowSelected = row
+            End If
         Next
 
-        DataHistorial.DataSource = Conexio.CarregaHistorial(IdEmpresa)
-        If Not IsDBNull(DataEmpreses.CurrentRow.Cells("Observacions").Value) Then
-            TB_ObservacionsCLient.Text = DataEmpreses.CurrentRow.Cells("Observacions").Value
+        DataHistorial.DataSource = Conexio.CarregaHistorial(idClientActual)
+
+        If Not IsDBNull(rowSelected.Cells("Observacions").Value) Then
+            TB_ObservacionsCLient.Text = rowSelected.Cells("Observacions").Value
         Else
             TB_ObservacionsCLient.Text = ""
         End If
+
         PanelControlHoras.Visible = True
-        Lbl_NomEmpresa.Text = DataEmpreses.CurrentRow.Cells("Nom").Value
-        If Not IsDBNull(DataEmpreses.CurrentRow.Cells("IdExit").Value) Then
-            Lbl_IdExit.Text = DataEmpreses.CurrentRow.Cells("IdExit").Value
+        PanelGestio.Visible = True
+
+        Lbl_NomEmpresa.Text = rowSelected.Cells("Nom").Value
+        If Not IsDBNull(rowSelected.Cells("IdExit").Value) Then
+            Lbl_IdExit.Text = rowSelected.Cells("IdExit").Value
         Else
             Lbl_IdExit.Text = ""
         End If
+
         CalculaHores()
 
-        PanelGestio.Visible = True
     End Sub
 
     Private Sub TB_CercaId_TextChanged(sender As Object, e As EventArgs) Handles TB_CercaId.TextChanged
@@ -298,7 +351,11 @@ Public Class Principal
 
     Private Sub Btn_afegirClient_Click(sender As Object, e As EventArgs) Handles Btn_afegirClient.Click
         Dim nouClient As Form = New EdicioClient()
-        nouClient.ShowDialog()
+
+        Dim resultat As DialogResult = nouClient.ShowDialog
+        If resultat = DialogResult.OK Then
+            ActualitzaClients()
+        End If
     End Sub
 
     Private Sub Btn_EliminarClient_Click(sender As Object, e As EventArgs) Handles Btn_EliminarClient.Click
@@ -307,7 +364,10 @@ Public Class Principal
             If result = vbYes Then
                 If EliminaClient(DataEmpreses.CurrentRow.Cells("Id").Value) = True Then
                     MsgBox("S'ha eliminat amb éxit el client",, "Eliminar registre")
-                    DataEmpreses.DataSource = Conexio.CarregaClients(TB_CercaEmpreses.Text, TB_CercaId.Text)
+                    guardaResgistreUsuari(usuariActual, "CLIENT (" & DataEmpreses.CurrentRow.Cells("Nom").Value & ") BORRAT")
+                    ActualitzaClients()
+                    idClientActual = 0
+                    ActualitzaHistorial()
                     AmagaPanelGestio()
                 Else
                     MsgBox("No s'ha pogut eliminar el client",, "Eliminar registre")
@@ -325,7 +385,9 @@ Public Class Principal
             Dim idExit As String = DataEmpreses.CurrentRow.Cells("IdExit").Value
             Dim nom As String = DataEmpreses.CurrentRow.Cells("Nom").Value
             Dim nouClient As Form = New EdicioClient(id, idExit, nom)
-            nouClient.ShowDialog()
+            If nouClient.ShowDialog() = True Then
+                ActualitzaClients()
+            End If
         End If
     End Sub
 
@@ -340,12 +402,12 @@ Public Class Principal
         PanelControlHoras.Visible = False
         Panel_AfegirHores.Visible = False
         Panel_RestarHores.Visible = False
-    End Sub
-    Public Sub MostraTotComplet()
-        DataHistorial.DataSource = CarregaHistorial()
-        DataEmpreses.DataSource = CarregaClients()
-        DataEmpreses.ClearSelection()
-        AmagaPanelGestio()
+        Lbl_NomEmpresa.Text = ""
+        Lbl_IdExit.Text = ""
+        TB_ObservacionsCLient.Clear()
+        TB_ObservacionsCLient.Enabled = False
+        Btn_DesarObservacions.Enabled = False
+        idClientActual = 0
     End Sub
 
     Public Sub AmagaPanelGestio()
@@ -373,11 +435,6 @@ Public Class Principal
         End If
     End Sub
 
-    Private Sub DataHistorial_CellFormatting(sender As Object, e As DataGridViewCellFormattingEventArgs) Handles DataHistorial.CellFormatting
-        Dim dgv As DataGridView = sender
-
-    End Sub
-
     Private Sub Btn_exportExcel_Click(sender As Object, e As EventArgs) Handles Btn_exportExcel.Click
         If Lbl_NomEmpresa.Text = "" Then
             ExportarDadesExcel(DataHistorial, "Historial Complet Pack d'hores")
@@ -390,51 +447,55 @@ Public Class Principal
 
     Public Sub ExportarDadesExcel(ByVal dataGridView As DataGridView, ByVal textEncabezado As String)
 
-        Try
-            ExcelPackage.LicenseContext = LicenseContext.NonCommercial
-            Dim arxiuExcel As New ExcelPackage()
+        If DataHistorial.RowCount > 0 Then
+            Try
+                ExcelPackage.LicenseContext = LicenseContext.NonCommercial
+                Dim arxiuExcel As New ExcelPackage()
 
-            Dim hoja As ExcelWorksheet = arxiuExcel.Workbook.Worksheets.Add("Pack Hores")
+                Dim hoja As ExcelWorksheet = arxiuExcel.Workbook.Worksheets.Add("Pack Hores")
 
-            ' Personalizar el encabezado
-            Dim encabezado As ExcelRange = hoja.Cells("A1:" & ConvertToLetter(dataGridView.Columns.Count) & "1")
-            encabezado.Merge = True
-            encabezado.Value = textEncabezado
-            encabezado.Style.Font.Bold = True
-            encabezado.Style.Font.Size = 14
-            encabezado.Style.HorizontalAlignment = ExcelHorizontalAlignment.Center
+                ' Personalizar el encabezado
+                Dim encabezado As ExcelRange = hoja.Cells("A1:" & ConvertToLetter(dataGridView.Columns.Count) & "1")
+                encabezado.Merge = True
+                encabezado.Value = textEncabezado
+                encabezado.Style.Font.Bold = True
+                encabezado.Style.Font.Size = 14
+                encabezado.Style.HorizontalAlignment = ExcelHorizontalAlignment.Center
 
 
-            For i As Integer = 0 To dataGridView.Columns.Count - 1
-                hoja.Cells(2, i + 1).Value = dataGridView.Columns(i).HeaderText
-                hoja.Cells(1, i + 1).Style.Fill.PatternType = OfficeOpenXml.Style.ExcelFillStyle.Solid
-                hoja.Cells(1, i + 1).Style.Fill.BackgroundColor.SetColor(telematic)
-                hoja.Cells(2, i + 1).Style.Fill.PatternType = OfficeOpenXml.Style.ExcelFillStyle.Solid
-                hoja.Cells(2, i + 1).Style.Fill.BackgroundColor.SetColor(Color.LightGray)
-            Next
-
-            For i As Integer = 0 To dataGridView.Rows.Count - 1
-                For j As Integer = 0 To dataGridView.Columns.Count - 1
-                    hoja.Cells(i + 3, j + 1).Value = dataGridView.Rows(i).Cells(j).Value
+                For i As Integer = 0 To dataGridView.Columns.Count - 1
+                    hoja.Cells(2, i + 1).Value = dataGridView.Columns(i).HeaderText
+                    hoja.Cells(1, i + 1).Style.Fill.PatternType = OfficeOpenXml.Style.ExcelFillStyle.Solid
+                    hoja.Cells(1, i + 1).Style.Fill.BackgroundColor.SetColor(telematic)
+                    hoja.Cells(2, i + 1).Style.Fill.PatternType = OfficeOpenXml.Style.ExcelFillStyle.Solid
+                    hoja.Cells(2, i + 1).Style.Fill.BackgroundColor.SetColor(Color.LightGray)
                 Next
-            Next
 
-            hoja.Cells.AutoFitColumns()
+                For i As Integer = 0 To dataGridView.Rows.Count - 1
+                    For j As Integer = 0 To dataGridView.Columns.Count - 1
+                        hoja.Cells(i + 3, j + 1).Value = dataGridView.Rows(i).Cells(j).Value
+                    Next
+                Next
 
-            Dim saveDialog As New SaveFileDialog
-            saveDialog.Filter = "Arxius de Excel (*.xlsx)|*.xlsx"
-            saveDialog.FilterIndex = 1
-            saveDialog.RestoreDirectory = True
+                hoja.Cells.AutoFitColumns()
 
-            If saveDialog.ShowDialog = DialogResult.OK Then
-                arxiuExcel.SaveAs(saveDialog.FileName)
-                arxiuExcel.Dispose()
-            End If
+                Dim saveDialog As New SaveFileDialog
+                saveDialog.Filter = "Arxius de Excel (*.xlsx)|*.xlsx"
+                saveDialog.FilterIndex = 1
+                saveDialog.RestoreDirectory = True
 
-            MsgBox("Arxiu guardat amb éxit",, "Exportar arxiu Excel")
-        Catch ex As Exception
-            MsgBox("No s'ha pogut exportar l'arxiu",, "Exportar arxiu Excel")
-        End Try
+                If saveDialog.ShowDialog = DialogResult.OK Then
+                    arxiuExcel.SaveAs(saveDialog.FileName)
+                    arxiuExcel.Dispose()
+                End If
+
+                MsgBox("Arxiu guardat amb éxit",, "Exportar arxiu Excel")
+            Catch ex As Exception
+                MsgBox("No s'ha pogut exportar l'arxiu",, "Exportar arxiu Excel")
+            End Try
+        Else
+            MsgBox("No hi ha resultats que exportar", vbInformation, "Exportar arxiu Excel")
+        End If
 
     End Sub
 
@@ -457,41 +518,69 @@ Public Class Principal
         ExportarDadesCSV(DataHistorial)
     End Sub
     Public Sub ExportarDadesCSV(ByVal dataGridView As DataGridView)
-
-        Try
-            Dim csv As String = ""
-            ' Encabezados de las columnas
-            For Each column As DataGridViewColumn In dataGridView.Columns
-                csv += column.HeaderText & ","
-            Next
-            csv = csv.Substring(0, csv.Length - 1) & Environment.NewLine
-
-            ' Datos
-            For Each row As DataGridViewRow In dataGridView.Rows
-                For Each cell As DataGridViewCell In row.Cells
-                    csv += cell.FormattedValue.ToString().Replace(",", ";") & ","
+        If DataHistorial.RowCount > 0 Then
+            Try
+                Dim csv As String = ""
+                ' Encabezados de las columnas
+                For Each column As DataGridViewColumn In dataGridView.Columns
+                    csv += column.HeaderText & ","
                 Next
                 csv = csv.Substring(0, csv.Length - 1) & Environment.NewLine
-            Next
 
-            ' Guardar el archivo
-            Dim saveDialog As New SaveFileDialog
-            saveDialog.Filter = "Arxius CSV (*.csv)|*.csv"
-            saveDialog.FilterIndex = 1
-            saveDialog.RestoreDirectory = True
+                ' Datos
+                For Each row As DataGridViewRow In dataGridView.Rows
+                    For Each cell As DataGridViewCell In row.Cells
+                        csv += cell.FormattedValue.ToString().Replace(",", ";") & ","
+                    Next
+                    csv = csv.Substring(0, csv.Length - 1) & Environment.NewLine
+                Next
 
-            If saveDialog.ShowDialog = DialogResult.OK Then
-                File.WriteAllText(saveDialog.FileName, csv)
-            End If
+                ' Guardar el archivo
+                Dim saveDialog As New SaveFileDialog
+                saveDialog.Filter = "Arxius CSV (*.csv)|*.csv"
+                saveDialog.FilterIndex = 1
+                saveDialog.RestoreDirectory = True
 
-            MsgBox("Arxiu guardat amb éxit", MsgBoxStyle.Information, "Exportar arxiu CSV")
-        Catch ex As Exception
-            MsgBox("No s'ha pogut exportar l'arxiu", MsgBoxStyle.Exclamation, "Exportar arxiu CSV")
-        End Try
+                If saveDialog.ShowDialog = DialogResult.OK Then
+                    File.WriteAllText(saveDialog.FileName, csv)
+                End If
+
+                MsgBox("Arxiu guardat amb éxit", MsgBoxStyle.Information, "Exportar arxiu CSV")
+            Catch ex As Exception
+                MsgBox("No s'ha pogut exportar l'arxiu", MsgBoxStyle.Exclamation, "Exportar arxiu CSV")
+            End Try
+        Else
+            MsgBox("No hi ha resultats que exportar", vbInformation, "Exportar arxiu CSV")
+        End If
 
     End Sub
 
     Private Sub Principal_FormClosing(sender As Object, e As FormClosingEventArgs) Handles MyBase.FormClosing
-        Application.Exit()
+        If e.CloseReason = CloseReason.UserClosing Then
+            guardaResgistreUsuari(usuariActual, "SURT DE L'APLICACIÓ")
+            Login.Close()
+        Else
+            e.Cancel = True
+        End If
+    End Sub
+
+    Private Sub PB_TancarSessio_Click(sender As Object, e As EventArgs) Handles PB_TancarSessio.Click
+        guardaResgistreUsuari(usuariActual, "LOGOUT")
+        usuariActual = ""
+        My.Settings.Usuari = ""
+        My.Settings.Password = ""
+        My.Settings.GuardarCredencials = False
+        Login.Show()
+        Me.Hide()
+    End Sub
+
+    Private Sub Principal_VisibleChanged(sender As Object, e As EventArgs) Handles MyBase.VisibleChanged
+        Lbl_usuari.Text = usuariActual
+        Debug.WriteLine("Visible usuari actual: " & usuariActual)
+    End Sub
+
+    Private Sub PB_LaMevaConta_Click(sender As Object, e As EventArgs) Handles PB_LaMevaConta.Click
+        Dim LaMevaConta As New EdicioUsuari()
+        LaMevaConta.ShowDialog()
     End Sub
 End Class

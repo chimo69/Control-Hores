@@ -5,7 +5,7 @@
     <TargetFramework>net6.0-windows</TargetFramework>
     <RootNamespace>Control_Hores</RootNamespace>
     <StartupObject>Control_Hores.My.MyApplication</StartupObject>
-    <UseWindowsForms>true</UseWindowsForms>
+    <UseWindowsForms>True</UseWindowsForms>
     <MyType>WindowsForms</MyType>
     <ApplicationIcon>caja.ico</ApplicationIcon>
     <ImportedNamespaces>Microsoft.Data.Sqlite=False,System.Data=False,System.Drawing=False,System.Windows.Forms=False,Microsoft.VisualBasic=True,System=True,System.Collections=True,System.Collections.Generic=True,System.Diagnostics=True,System.Linq=True,System.Xml.Linq=True,System.Threading.Tasks=True,Control Hores=True</ImportedNamespaces>
@@ -23,7 +23,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="EPPlus" Version="6.2.0" />
+    <PackageReference Include="EPPlus" Version="6.2.1" />
     <PackageReference Include="Microsoft.Data.Sqlite" Version="8.0.0-preview.2.23128.3" />
     <PackageReference Include="System.Data.SQLite" Version="1.0.117" />
   </ItemGroup>
