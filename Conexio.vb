@@ -29,6 +29,7 @@ Module Conexio
                 Using reader As SQLiteDataReader = CMD.ExecuteReader()
                     If reader.Read() Then
                         idTipusUsuari = reader.GetValue(1)
+                        idUsuariActual = reader.GetValue(0)
                         resultat = True
                     End If
                 End Using
@@ -396,6 +397,7 @@ Module Conexio
     End Function
 
     Public Function ActualitzarPassword(IdUsuari As Integer, Password As String) As Boolean
+
         Dim Query As String = "UPDATE Usuaris SET Password=@password WHERE Id= @IdUsuari"
         Dim sha256 As SHA256 = SHA256.Create
         Dim hashBytes As Byte() = sha256.ComputeHash(Encoding.UTF8.GetBytes(Password))

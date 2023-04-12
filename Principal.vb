@@ -196,14 +196,13 @@ Public Class Principal
     End Sub
 
     Private Sub TB_HoresAfegir_TextChanged(sender As Object, e As EventArgs) Handles TB_HoresAfegir.TextChanged
-        If TB_HoresAfegir.Text = "" Then TB_HoresAfegir.Text = "0"
+        ' If TB_HoresAfegir.Text = "" Then TB_HoresAfegir.Text = "0"
         Dim valor1 As Double = 0
         Dim valor2 As Double = 0
 
         If Double.TryParse(TB_HoresAfegir.Text, valor1) AndAlso Double.TryParse(TB_PreuHora.Text, valor2) Then
             Dim resultado As Double = valor1 * valor2
             TB_Import.Text = resultado.ToString()
-
         End If
 
     End Sub
@@ -221,15 +220,31 @@ Public Class Principal
     End Sub
 
     Private Sub Btn_AfegirHores_Click(sender As Object, e As EventArgs) Handles Btn_AfegirHores.Click
-        If TB_HoresAfegir.Text <> "" Then
-            Dim dgv As DataGridView = DataHistorial
-            Dim import As Double = CDbl(TB_Import.Text)
-            Dim Comentaris As String = TB_Comentaris.Text
-            Dim Hores As Double = CDbl(TB_HoresAfegir.Text)
-            Dim PreuHora As Double = CDbl(TB_PreuHora.Text)
-            Dim rutaArxiu As String = ""
+        'If TB_HoresAfegir.Text <> "" Then
+        Dim dgv As DataGridView = DataHistorial
+        Dim import As Double
+        Dim Comentaris As String = TB_Comentaris.Text
+        Dim Hores As Double
+        Dim PreuHora As Double
+        Dim rutaArxiu As String = ""
 
-            Dim result = MsgBox("Vols adjuntar un document?", vbYesNo, "Afegir transacció")
+        If TB_HoresAfegir.Text = "" Then
+            Hores = 0
+        Else
+            Hores = CDbl(TB_HoresAfegir.Text)
+        End If
+        If TB_PreuHora.Text = 0 Then
+            PreuHora = 0
+        Else
+            PreuHora = CDbl(TB_PreuHora.Text)
+        End If
+        If TB_Import.Text = "" Then
+            import = 0
+        Else
+            import = CDbl(TB_Import.Text)
+        End If
+
+        Dim result = MsgBox("Vols adjuntar un document?", vbYesNo, "Afegir transacció")
             If result = vbYes Then
                 Dim openFileDialog As New OpenFileDialog
                 openFileDialog.Filter = "Arxius de text (*.pdf)|*.pdf|Todos los archivos (*.*)|*.*"
@@ -243,8 +258,9 @@ Public Class Principal
             AfegirTransacció(idClientActual, 1, import, Comentaris, Hores, PreuHora, rutaArxiu)
             guardaResgistreUsuari(usuariActual, "AFEGEIX " & Hores & " HORES A (" & Lbl_NomEmpresa.Text & ")")
 
-            ActualitzaClients()
-            CalculaHores()
+        ActualitzaClients()
+        ActualitzaHistorial()
+        CalculaHores()
             TB_HoresAfegir.Clear()
             TB_Comentaris.Clear()
             TB_HoresRestar.Clear()
@@ -252,18 +268,25 @@ Public Class Principal
             Panel_AfegirHores.Visible = False
             Panel_RestarHores.Visible = False
             Panel_ComentarisTransaccio.Visible = False
-        End If
+        'End If
     End Sub
 
     Private Sub Btn_restarHores_Click(sender As Object, e As EventArgs) Handles Btn_restarHores.Click
-        If TB_HoresRestar.Text <> "" Then
-            Dim dgv As DataGridView = DataHistorial
-            Dim Comentaris As String = TB_Comentaris.Text
-            Dim Hores As Double = CDbl(TB_HoresRestar.Text) * -1
-            Dim rutaArxiu As String = ""
+        '        If TB_HoresRestar.Text <> "" Then
 
-            Dim result = MsgBox("Vols adjuntar un document?", vbYesNo, "Afegir transacció")
-            If result = vbYes Then
+        Dim dgv As DataGridView = DataHistorial
+        Dim Comentaris As String = TB_Comentaris.Text
+        Dim Hores As Double
+        Dim rutaArxiu As String = ""
+
+        If TB_HoresRestar.Text = "" Then
+            Hores = 0
+        Else
+            Hores = CDbl(TB_HoresRestar.Text) * -1
+        End If
+
+        Dim result = MsgBox("Vols adjuntar un document?", vbYesNo, "Afegir transacció")
+        If result = vbYes Then
                 Dim openFileDialog As New OpenFileDialog
                 openFileDialog.Filter = "Arxius de text (*.pdf)|*.pdf|Todos los archivos (*.*)|*.*"
                 openFileDialog.FilterIndex = 1
@@ -277,15 +300,16 @@ Public Class Principal
             guardaResgistreUsuari(usuariActual, "RESTA " & Hores & " HORES A (" & Lbl_NomEmpresa.Text & ")")
 
             ActualitzaClients()
-            CalculaHores()
-            TB_HoresAfegir.Clear()
+        ActualitzaHistorial()
+        CalculaHores()
+        TB_HoresAfegir.Clear()
             TB_Comentaris.Clear()
             TB_HoresRestar.Clear()
             TB_PreuHora.Clear()
             Panel_AfegirHores.Visible = False
             Panel_RestarHores.Visible = False
             Panel_ComentarisTransaccio.Visible = False
-        End If
+        'End If
     End Sub
 
     Private Sub DataHistorial_CellMouseClick(sender As Object, e As DataGridViewCellMouseEventArgs) Handles DataHistorial.CellMouseClick
@@ -567,6 +591,7 @@ Public Class Principal
     Private Sub PB_TancarSessio_Click(sender As Object, e As EventArgs) Handles PB_TancarSessio.Click
         guardaResgistreUsuari(usuariActual, "LOGOUT")
         usuariActual = ""
+        idUsuariActual = 0
         My.Settings.Usuari = ""
         My.Settings.Password = ""
         My.Settings.GuardarCredencials = False
@@ -582,5 +607,9 @@ Public Class Principal
     Private Sub PB_LaMevaConta_Click(sender As Object, e As EventArgs) Handles PB_LaMevaConta.Click
         Dim LaMevaConta As New EdicioUsuari()
         LaMevaConta.ShowDialog()
+    End Sub
+
+    Private Sub DataEmpreses_ColumnHeaderMouseClick(sender As Object, e As DataGridViewCellMouseEventArgs) Handles DataEmpreses.ColumnHeaderMouseClick
+        MostraHistorialComplet()
     End Sub
 End Class
