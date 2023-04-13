@@ -9,6 +9,13 @@ Module Conexio
     Public idClientActual As Integer
     Public idUsuariActual As Integer
     Public idTipusUsuari As Integer
+    Public taronja As Color = Color.FromArgb(255, 197, 128)
+    Public vermell As Color = Color.FromArgb(255, 128, 128)
+    Public verd As Color = Color.FromArgb(164, 255, 150)
+    Public verdClar As Color = Color.FromArgb(192, 255, 192)
+    Public groc As Color = Color.FromArgb(252, 255, 168)
+    Public telematic As Color = Color.FromArgb(72, 101, 174)
+    Public telematic_oscur As Color = Color.FromArgb(37, 46, 59)
 
 
     Public Function comprobaUsuari(usuari As String, password As String) As Boolean

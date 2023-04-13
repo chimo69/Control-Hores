@@ -38,13 +38,16 @@ Partial Class EdicioResgistre
         Me.TB_Arxiu = New System.Windows.Forms.TextBox()
         Me.Btn_EditarRuta = New System.Windows.Forms.Button()
         Me.Btn_BorrarRuta = New System.Windows.Forms.Button()
+        Me.PanelTipusTransaccio = New System.Windows.Forms.Panel()
+        Me.Lbl_TipusTransaccio = New System.Windows.Forms.Label()
+        Me.PanelTipusTransaccio.SuspendLayout()
         Me.SuspendLayout()
         '
         'Btn_EliminaRegistre
         '
         Me.Btn_EliminaRegistre.BackColor = System.Drawing.Color.IndianRed
         Me.Btn_EliminaRegistre.ForeColor = System.Drawing.SystemColors.Control
-        Me.Btn_EliminaRegistre.Location = New System.Drawing.Point(128, 305)
+        Me.Btn_EliminaRegistre.Location = New System.Drawing.Point(142, 350)
         Me.Btn_EliminaRegistre.Name = "Btn_EliminaRegistre"
         Me.Btn_EliminaRegistre.Size = New System.Drawing.Size(116, 40)
         Me.Btn_EliminaRegistre.TabIndex = 23
@@ -53,7 +56,7 @@ Partial Class EdicioResgistre
         '
         'Btn_ActualitzaRegistre
         '
-        Me.Btn_ActualitzaRegistre.Location = New System.Drawing.Point(251, 305)
+        Me.Btn_ActualitzaRegistre.Location = New System.Drawing.Point(265, 350)
         Me.Btn_ActualitzaRegistre.Name = "Btn_ActualitzaRegistre"
         Me.Btn_ActualitzaRegistre.Size = New System.Drawing.Size(116, 40)
         Me.Btn_ActualitzaRegistre.TabIndex = 22
@@ -63,15 +66,17 @@ Partial Class EdicioResgistre
         'TB_Import
         '
         Me.TB_Import.Enabled = False
-        Me.TB_Import.Location = New System.Drawing.Point(267, 99)
+        Me.TB_Import.Location = New System.Drawing.Point(281, 144)
         Me.TB_Import.Name = "TB_Import"
+        Me.TB_Import.PlaceholderText = "0"
         Me.TB_Import.Size = New System.Drawing.Size(100, 23)
         Me.TB_Import.TabIndex = 21
+        Me.TB_Import.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         '
         'Label5
         '
         Me.Label5.AutoSize = True
-        Me.Label5.Location = New System.Drawing.Point(299, 81)
+        Me.Label5.Location = New System.Drawing.Point(313, 126)
         Me.Label5.Name = "Label5"
         Me.Label5.Size = New System.Drawing.Size(43, 15)
         Me.Label5.TabIndex = 20
@@ -79,7 +84,7 @@ Partial Class EdicioResgistre
         '
         'TB_Observacions
         '
-        Me.TB_Observacions.Location = New System.Drawing.Point(21, 225)
+        Me.TB_Observacions.Location = New System.Drawing.Point(35, 270)
         Me.TB_Observacions.Multiline = True
         Me.TB_Observacions.Name = "TB_Observacions"
         Me.TB_Observacions.Size = New System.Drawing.Size(345, 65)
@@ -88,7 +93,7 @@ Partial Class EdicioResgistre
         'Label4
         '
         Me.Label4.AutoSize = True
-        Me.Label4.Location = New System.Drawing.Point(21, 207)
+        Me.Label4.Location = New System.Drawing.Point(35, 252)
         Me.Label4.Name = "Label4"
         Me.Label4.Size = New System.Drawing.Size(78, 15)
         Me.Label4.TabIndex = 18
@@ -96,15 +101,17 @@ Partial Class EdicioResgistre
         '
         'TB_PreuHora
         '
-        Me.TB_PreuHora.Location = New System.Drawing.Point(128, 99)
+        Me.TB_PreuHora.Location = New System.Drawing.Point(142, 144)
         Me.TB_PreuHora.Name = "TB_PreuHora"
+        Me.TB_PreuHora.PlaceholderText = "0"
         Me.TB_PreuHora.Size = New System.Drawing.Size(100, 23)
         Me.TB_PreuHora.TabIndex = 17
+        Me.TB_PreuHora.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         '
         'Label3
         '
         Me.Label3.AutoSize = True
-        Me.Label3.Location = New System.Drawing.Point(21, 107)
+        Me.Label3.Location = New System.Drawing.Point(35, 152)
         Me.Label3.Name = "Label3"
         Me.Label3.Size = New System.Drawing.Size(68, 15)
         Me.Label3.TabIndex = 16
@@ -112,15 +119,17 @@ Partial Class EdicioResgistre
         '
         'TB_Hores
         '
-        Me.TB_Hores.Location = New System.Drawing.Point(128, 59)
+        Me.TB_Hores.Location = New System.Drawing.Point(142, 104)
         Me.TB_Hores.Name = "TB_Hores"
+        Me.TB_Hores.PlaceholderText = "0"
         Me.TB_Hores.Size = New System.Drawing.Size(100, 23)
         Me.TB_Hores.TabIndex = 15
+        Me.TB_Hores.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         '
         'Label2
         '
         Me.Label2.AutoSize = True
-        Me.Label2.Location = New System.Drawing.Point(21, 67)
+        Me.Label2.Location = New System.Drawing.Point(35, 112)
         Me.Label2.Name = "Label2"
         Me.Label2.Size = New System.Drawing.Size(38, 15)
         Me.Label2.TabIndex = 14
@@ -128,7 +137,7 @@ Partial Class EdicioResgistre
         '
         'TP_DataRegistre
         '
-        Me.TP_DataRegistre.Location = New System.Drawing.Point(128, 21)
+        Me.TP_DataRegistre.Location = New System.Drawing.Point(142, 66)
         Me.TP_DataRegistre.Name = "TP_DataRegistre"
         Me.TP_DataRegistre.Size = New System.Drawing.Size(239, 23)
         Me.TP_DataRegistre.TabIndex = 13
@@ -136,7 +145,7 @@ Partial Class EdicioResgistre
         'Label1
         '
         Me.Label1.AutoSize = True
-        Me.Label1.Location = New System.Drawing.Point(21, 29)
+        Me.Label1.Location = New System.Drawing.Point(35, 74)
         Me.Label1.Name = "Label1"
         Me.Label1.Size = New System.Drawing.Size(88, 15)
         Me.Label1.TabIndex = 12
@@ -145,7 +154,7 @@ Partial Class EdicioResgistre
         'Label6
         '
         Me.Label6.AutoSize = True
-        Me.Label6.Location = New System.Drawing.Point(21, 146)
+        Me.Label6.Location = New System.Drawing.Point(35, 191)
         Me.Label6.Name = "Label6"
         Me.Label6.Size = New System.Drawing.Size(100, 15)
         Me.Label6.TabIndex = 24
@@ -154,7 +163,7 @@ Partial Class EdicioResgistre
         'TB_Arxiu
         '
         Me.TB_Arxiu.Enabled = False
-        Me.TB_Arxiu.Location = New System.Drawing.Point(21, 167)
+        Me.TB_Arxiu.Location = New System.Drawing.Point(35, 212)
         Me.TB_Arxiu.Name = "TB_Arxiu"
         Me.TB_Arxiu.Size = New System.Drawing.Size(267, 23)
         Me.TB_Arxiu.TabIndex = 25
@@ -163,7 +172,7 @@ Partial Class EdicioResgistre
         '
         Me.Btn_EditarRuta.BackgroundImage = Global.Control_Hores.My.Resources.Resources.editar
         Me.Btn_EditarRuta.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom
-        Me.Btn_EditarRuta.Location = New System.Drawing.Point(333, 161)
+        Me.Btn_EditarRuta.Location = New System.Drawing.Point(347, 206)
         Me.Btn_EditarRuta.Name = "Btn_EditarRuta"
         Me.Btn_EditarRuta.Size = New System.Drawing.Size(33, 33)
         Me.Btn_EditarRuta.TabIndex = 27
@@ -172,17 +181,36 @@ Partial Class EdicioResgistre
         'Btn_BorrarRuta
         '
         Me.Btn_BorrarRuta.Image = Global.Control_Hores.My.Resources.Resources.icono_eliminar
-        Me.Btn_BorrarRuta.Location = New System.Drawing.Point(294, 161)
+        Me.Btn_BorrarRuta.Location = New System.Drawing.Point(308, 206)
         Me.Btn_BorrarRuta.Name = "Btn_BorrarRuta"
         Me.Btn_BorrarRuta.Size = New System.Drawing.Size(33, 33)
         Me.Btn_BorrarRuta.TabIndex = 28
         Me.Btn_BorrarRuta.UseVisualStyleBackColor = True
         '
+        'PanelTipusTransaccio
+        '
+        Me.PanelTipusTransaccio.Controls.Add(Me.Lbl_TipusTransaccio)
+        Me.PanelTipusTransaccio.Location = New System.Drawing.Point(35, 12)
+        Me.PanelTipusTransaccio.Name = "PanelTipusTransaccio"
+        Me.PanelTipusTransaccio.Size = New System.Drawing.Size(345, 33)
+        Me.PanelTipusTransaccio.TabIndex = 29
+        '
+        'Lbl_TipusTransaccio
+        '
+        Me.Lbl_TipusTransaccio.Font = New System.Drawing.Font("Bahnschrift Light SemiCondensed", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point)
+        Me.Lbl_TipusTransaccio.Location = New System.Drawing.Point(3, 0)
+        Me.Lbl_TipusTransaccio.Name = "Lbl_TipusTransaccio"
+        Me.Lbl_TipusTransaccio.Size = New System.Drawing.Size(339, 30)
+        Me.Lbl_TipusTransaccio.TabIndex = 0
+        Me.Lbl_TipusTransaccio.Text = "Afegir hores"
+        Me.Lbl_TipusTransaccio.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        '
         'EdicioResgistre
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(7.0!, 15.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(414, 366)
+        Me.ClientSize = New System.Drawing.Size(414, 406)
+        Me.Controls.Add(Me.PanelTipusTransaccio)
         Me.Controls.Add(Me.Btn_BorrarRuta)
         Me.Controls.Add(Me.Btn_EditarRuta)
         Me.Controls.Add(Me.TB_Arxiu)
@@ -203,6 +231,7 @@ Partial Class EdicioResgistre
         Me.Name = "EdicioResgistre"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent
         Me.Text = "Edicio de Registre"
+        Me.PanelTipusTransaccio.ResumeLayout(False)
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -224,4 +253,6 @@ Partial Class EdicioResgistre
     Friend WithEvents TB_Arxiu As TextBox
     Friend WithEvents Btn_EditarRuta As Button
     Friend WithEvents Btn_BorrarRuta As Button
+    Friend WithEvents PanelTipusTransaccio As Panel
+    Friend WithEvents Lbl_TipusTransaccio As Label
 End Class

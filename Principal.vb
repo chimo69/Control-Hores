@@ -6,13 +6,7 @@ Imports OfficeOpenXml
 Imports OfficeOpenXml.Style
 
 Public Class Principal
-    Public taronja As Color = Color.FromArgb(255, 197, 128)
-    Public vermell As Color = Color.FromArgb(255, 128, 128)
-    Public verd As Color = Color.FromArgb(164, 255, 150)
-    Public verdClar As Color = Color.FromArgb(192, 255, 192)
-    Public groc As Color = Color.FromArgb(252, 255, 168)
-    Public telematic As Color = Color.FromArgb(72, 101, 174)
-    Public telematic_oscur As Color = Color.FromArgb(37, 46, 59)
+
 
     Public Sub New()
 
@@ -36,6 +30,7 @@ Public Class Principal
         Dgv.Columns("Id").Visible = False
         Dgv.Columns("Observacions").Visible = False
         Dgv.Columns("Hores").Width = 40
+        Dgv.Columns("Hores").DefaultCellStyle.Format = "F2"
         Dgv.Columns("Hores").DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight
         Dgv.Columns("IdExit").Width = 50
         Dgv.Columns("IdExit").DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter
@@ -64,13 +59,16 @@ Public Class Principal
     Private Sub DataHistorial_DataBindingComplete(sender As Object, e As DataGridViewBindingCompleteEventArgs) Handles DataHistorial.DataBindingComplete
         Dim dgv As DataGridView = sender
         With dgv
+            .ColumnHeadersDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter
             .Columns("IdTransaccio").Visible = False
             .Columns("Client").Visible = False
             .Columns("Data transacció").DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter
-            .Columns("Data transacció").Width = 100
             .Columns("Usuari").Width = 75
-            .Columns("Hores").Width = 50
-            .Columns("hores").DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter
+            .Columns("Transacció").Width = 100
+            .Columns("Transacció").DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter
+            .Columns("Hores").Width = 70
+            .Columns("Hores").DefaultCellStyle.Format = "F2"
+            .Columns("Hores").DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight
             .Columns("Preu/Hora").Width = 70
             .Columns("Preu/Hora").DefaultCellStyle.Format = "C"
             .Columns("Preu/Hora").DefaultCellStyle.FormatProvider = New System.Globalization.CultureInfo("es-ES")
@@ -80,6 +78,7 @@ Public Class Principal
             .Columns("Import").DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight
             .Columns("Import").Width = 70
             .Columns("Id").Width = 50
+
             .ClearSelection()
         End With
         ColorejaTransaccions()
@@ -99,19 +98,19 @@ Public Class Principal
 
         HoresDisponibles = HoresSumades + HoresRestades
 
-        TB_HoresGastades.Text = Math.Abs(HoresRestades).ToString
-        TB_HoresTotals.Text = HoresSumades.ToString
+        TB_HoresGastades.Text = Math.Abs(HoresRestades).ToString("F2")
+        TB_HoresTotals.Text = HoresSumades.ToString("F2")
 
         If HoresDisponibles < 0 Then
             TB_HoresDegudes.Visible = True
             Lbl_HoresDegudes.Visible = True
             TB_HoresDisponibles.Text = 0
-            TB_HoresDegudes.Text = Math.Abs(HoresDisponibles).ToString
+            TB_HoresDegudes.Text = Math.Abs(HoresDisponibles).ToString("F2")
 
         Else
             TB_HoresDegudes.Visible = False
             Lbl_HoresDegudes.Visible = False
-            TB_HoresDisponibles.Text = HoresDisponibles.ToString
+            TB_HoresDisponibles.Text = HoresDisponibles.ToString("F2")
         End If
 
     End Sub
@@ -187,11 +186,13 @@ Public Class Principal
     End Sub
 
     Private Sub Btn_DesarObservacions_Click(sender As Object, e As EventArgs) Handles Btn_DesarObservacions.Click
-        If ActualitzaObservacionsClient(idClientActual, TB_ObservacionsCLient.Text) = True Then
-            MsgBox("Observacions actualitzades",, "Actualització de dades")
-            ActualitzaClients()
-        Else
-            MsgBox("No s'han pogut actualitzar les observacions ",, "Actualització de dades")
+        If TB_ObservacionsCLient.Text <> "" Then
+            If ActualitzaObservacionsClient(idClientActual, TB_ObservacionsCLient.Text) = True Then
+                MsgBox("Observacions actualitzades",, "Actualització de dades")
+                ActualitzaClients()
+            Else
+                MsgBox("No s'han pogut actualitzar les observacions ",, "Actualització de dades")
+            End If
         End If
     End Sub
 
@@ -202,7 +203,7 @@ Public Class Principal
 
         If Double.TryParse(TB_HoresAfegir.Text, valor1) AndAlso Double.TryParse(TB_PreuHora.Text, valor2) Then
             Dim resultado As Double = valor1 * valor2
-            TB_Import.Text = resultado.ToString()
+            TB_Import.Text = resultado.ToString("F2")
         End If
 
     End Sub
@@ -214,7 +215,7 @@ Public Class Principal
 
         If Double.TryParse(TB_HoresAfegir.Text, valor1) AndAlso Double.TryParse(TB_PreuHora.Text, valor2) Then
             Dim resultado As Double = valor1 * valor2
-            TB_Import.Text = resultado.ToString()
+            TB_Import.Text = resultado.ToString("F2")
 
         End If
     End Sub
@@ -256,7 +257,7 @@ Public Class Principal
                 End If
             End If
             AfegirTransacció(idClientActual, 1, import, Comentaris, Hores, PreuHora, rutaArxiu)
-            guardaResgistreUsuari(usuariActual, "AFEGEIX " & Hores & " HORES A (" & Lbl_NomEmpresa.Text & ")")
+        guardaResgistreUsuari(usuariActual, "AFEGEIX " & Math.Abs(Hores) & " HORES A (" & Lbl_NomEmpresa.Text & ")")
 
         ActualitzaClients()
         ActualitzaHistorial()
@@ -297,9 +298,9 @@ Public Class Principal
                 End If
             End If
             AfegirTransacció(idClientActual, 2, 0, Comentaris, Hores, 0, rutaArxiu)
-            guardaResgistreUsuari(usuariActual, "RESTA " & Hores & " HORES A (" & Lbl_NomEmpresa.Text & ")")
+        guardaResgistreUsuari(usuariActual, "RESTA " & Math.Abs(Hores) & " HORES A (" & Lbl_NomEmpresa.Text & ")")
 
-            ActualitzaClients()
+        ActualitzaClients()
         ActualitzaHistorial()
         CalculaHores()
         TB_HoresAfegir.Clear()
@@ -324,8 +325,8 @@ Public Class Principal
             Dim RutaArxiu As String = dgv.Rows(e.RowIndex).Cells("Arxiu").Value
             Dim tipusTransaccio As Integer = dgv.Rows(e.RowIndex).Cells("IdTransaccio").Value
             Dim editaRegistre As New EdicioResgistre(idEmpresa, idHistorial, Data, comentaris, Hores, PreuHora, RutaArxiu, tipusTransaccio)
-            Dim resposta As Boolean = editaRegistre.ShowDialog()
-            If resposta = True Then
+            Dim resposta As DialogResult = editaRegistre.ShowDialog()
+            If resposta = DialogResult.OK Then
                 ActualitzaClients()
                 ActualitzaHistorial()
             End If
@@ -611,5 +612,17 @@ Public Class Principal
 
     Private Sub DataEmpreses_ColumnHeaderMouseClick(sender As Object, e As DataGridViewCellMouseEventArgs) Handles DataEmpreses.ColumnHeaderMouseClick
         MostraHistorialComplet()
+    End Sub
+
+    Private Sub TB_HoresAfegir_Leave(sender As Object, e As EventArgs) Handles TB_HoresAfegir.Leave
+        If TB_HoresAfegir.Text = "" Then TB_HoresAfegir.Text = "0"
+    End Sub
+
+    Private Sub TB_PreuHora_Leave(sender As Object, e As EventArgs) Handles TB_PreuHora.Leave
+        If TB_PreuHora.Text = "" Then TB_PreuHora.Text = "0"
+    End Sub
+
+    Private Sub TB_HoresRestar_Leave(sender As Object, e As EventArgs) Handles TB_HoresRestar.Leave
+        If TB_HoresRestar.Text = "" Then TB_HoresRestar.Text = "0"
     End Sub
 End Class
