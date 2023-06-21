@@ -34,6 +34,7 @@ Public Class Principal
         Dgv.Columns("Hores").DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight
         Dgv.Columns("IdExit").Width = 50
         Dgv.Columns("IdExit").DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter
+        Dgv.Columns("IdExit").HeaderText = "Id A3"
         Dgv.ClearSelection()
         ColorejaClients()
     End Sub
